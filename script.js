@@ -1534,7 +1534,7 @@ class Obstacle{
             
             this.vy = 0;
             this.gravity = 55;
-            this.jumpStrength = -1900;
+            this.jumpStrength = -13;
             this.grounded = true;
 
             this.projectiles = [];
@@ -1626,18 +1626,18 @@ class Obstacle{
 
     //JUMPING MECHANIC
             if((this.game.keys.includes('ArrowUp') && this.grounded && this.canJump && !this.JetPackPowerUp)){
-                this.vy = this.jumpStrength * this.game.speed * (deltaTime/1000);
+                this.vy = this.jumpStrength;
                 this.grounded = false;
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 700 * this.game.speed * (deltaTime/1000);;}
+                this.y += 7}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 600 * this.game.speed * (deltaTime/1000);;}
+                this.y += 700 * this.game.speed * (deltaTime/1000);}
             if((this.game.keys.includes('ArrowUp') && this.JetPackPowerUp)){
                 this.grounded = false;
-                this.y -= 600 * this.game.speed * (deltaTime/1000);;}
+                this.y -= 700 * this.game.speed * (deltaTime/1000);}
             if(this.JetPackPowerUp){
                 this.vy = 0;
             }
@@ -3141,7 +3141,7 @@ class miniCOWenemy extends Enemy {
             //Increase speed for a potential powerup option
             this.speed = 1 
             this.debug = false;
-            this.lives = 10;
+            this.lives = 1000;
             this.MaxLives = 30;
 
             //secondprojectile 
