@@ -771,7 +771,7 @@ function getRandomInt(min, max) {
             this.height = 25;
             this.x = this.game.width;
 
-            this.speedX = 1.5;
+            this.speedX = 150;
 
 
             this.y = getRandomInt(290, 350);
@@ -781,8 +781,8 @@ function getRandomInt(min, max) {
               this.image = document.getElementById(images[Math.floor(Math.random() * images.length)]);
             }
         
-        update(){
-            this.x -= (this.speedX * this.game.speed);
+        update(deltaTime){
+            this.x -= (this.speedX * this.game.speed * (deltaTime/1000));
             if(this.x < -this.game.width +50) this.markedForDeletion = true;
         }
         
@@ -791,6 +791,7 @@ function getRandomInt(min, max) {
             context.drawImage(this.image, this.x, this.y);
             
     }}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3683,7 +3684,7 @@ this.bosses.forEach(Boss =>{
         //The code right under this is meant to ensure that the 'update()' function in any class is called (Every class needs its own  version)
         this.player.grounded = false;
         this.Platforms.forEach(Platform =>{
-            Platform.update();
+            Platform.update(deltaTime);
 
          if (this.checkPlatformCollision(this.player, Platform) && !this.player.JetPackPowerUp) {
             if (this.player.vy >= 0) {  // Ensure player is falling before grounding
