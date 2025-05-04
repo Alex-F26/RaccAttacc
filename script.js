@@ -1536,7 +1536,7 @@ class Obstacle{
             
             this.vy = 0;
             this.gravity = 7000;
-            this.jumpStrength = -1800;
+            this.jumpStrength = -1900;
             this.grounded = true;
 
             this.projectiles = [];
@@ -1910,7 +1910,7 @@ class Obstacle{
                 this.explosion1 = 0;
                 this.explosion2 = 0;
                 
-                this.lives = 1; //125
+                this.lives = 125; //125
                 this.livesOG = this.lives;
                 this.score = this.lives;
         }
@@ -1982,7 +1982,7 @@ class Obstacle{
                 this.explosion1 = 0;
                 this.explosion2 = 0;
                 
-                this.lives = 1; //125
+                this.lives = 111; //125
                 this.livesOG = this.lives;
                 this.score = this.lives;
         }
@@ -3081,9 +3081,9 @@ class miniCOWenemy extends Enemy {
 
 
             this.bossTimer = 0;
-            this.bossOWLInterval = 1000;//30000
-            this.bossUFOInterval = 1000;//90000                                         
-            this.bossSQUIRRELInterval = 1000;//165000
+            this.bossOWLInterval = 30000;//30000
+            this.bossUFOInterval = 90000;//90000                                         
+            this.bossSQUIRRELInterval = 165000;//165000
             this.bosses = [];
             this.bossCount = 0;
             this.bossDeaths = 0;
@@ -3143,7 +3143,7 @@ class miniCOWenemy extends Enemy {
             //Increase speed for a potential powerup option
             this.speed = 1 
             this.debug = false;
-            this.lives = 1000;
+            this.lives = 10;
             this.MaxLives = 30;
 
             //secondprojectile 
