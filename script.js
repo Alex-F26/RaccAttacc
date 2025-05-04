@@ -1633,7 +1633,7 @@ class Obstacle{
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 10}
+                this.y += 14}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
                 this.y += 700 * this.game.speed * (deltaTime/1000);}
@@ -4276,7 +4276,7 @@ this.bosses.forEach(Boss =>{
                 rect1.x + rect1.width-20 >= rect2.x && 
                 rect1.x+90 <= rect2.x + rect2.width &&
                 rect1.y + rect1.height >= rect2.y && 
-                rect1.y + rect1.height <= rect2.y+ 7 )} // Allow a small buffer
+                rect1.y + rect1.height <= rect2.y+ 12 )} // Allow a small buffer
 
         checkPowerUpCollision(rect1, rect2){
             return(
