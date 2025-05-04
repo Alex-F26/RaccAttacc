@@ -1630,7 +1630,7 @@ class Obstacle{
             if((this.game.keys.includes('ArrowUp') && this.grounded && this.canJump && !this.JetPackPowerUp)){
                 this.vy = this.jumpStrength;
                 this.grounded = false;
-                this.canJump = false;}
+                this.canJump = false;} 
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
                 this.y += 45}
