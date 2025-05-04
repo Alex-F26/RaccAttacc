@@ -166,11 +166,12 @@ document.getElementById('ResumeButton').addEventListener('pointerdown', () => {
             cursorSW.style.display = 'none';
             PauseButton.classList.remove('hidden');
 
-        if(Game.gameOver){
+            if(Game.gameOver){
                 document.getElementById("WinMessage").classList.remove('hidden');
                 document.getElementById("LoseMessage").classList.remove('hidden');
                 document.getElementById("CreditsMessage").classList.remove('hidden');
             }
+
 
             resumePlayingSounds();
             lastTime = performance.now();
@@ -610,6 +611,7 @@ document.getElementById('PauseButton').addEventListener('keydown', (e) => {
             
             canvas2.classList.remove('hidden');
         } 
+
     }
 });
 
@@ -624,7 +626,7 @@ document.getElementById('PauseButton').addEventListener('keydown', (e) => {
     //NOTES
     //TO ADD PARTICLES, there are TWO boss areas where they must be edited.
     //a class for each must be made unless extended from another.
-    //update the particle in GAME class                 this.feathers.forEach(Feather => Feather.update());
+    //update the particle in GAME class                 this.feathers.forEach(Feather => Feather.update(deltaTime) );
     //filter deletion of particles in GAME class        this.feathers = this.feathers.filter(Feather => !Feather.markedForDeletion);
     //add to the draw context to visualize in game      this.feathers.forEach(Feather => Feather.draw(context));
     //add an array for the particles                    this.feathers = [];
@@ -793,7 +795,6 @@ function getRandomInt(min, max) {
     }}
 
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Obstacle{
@@ -802,7 +803,7 @@ class Obstacle{
         this.width = 40;
         this.height = 75;
         this.x = this.game.width;
-        this.speedX = 1;
+        this.speedX = 100;
 
 
         this.y = this.game.height - this.height-10;
@@ -813,8 +814,8 @@ class Obstacle{
 
     }
     
-    update(){
-        this.x -= (this.speedX * this.game.speed);
+    update(deltaTime){
+        this.x -= (this.speedX * this.game.speed * (deltaTime/1000));
         if(this.x < -this.game.width +50) this.markedForDeletion = true;
         
     }
@@ -834,8 +835,8 @@ class Obstacle{
         constructor(game){
             this.game = game;
             this.x = this.game.width;
-            this.speedX = 1.5;
-            this.speedY = 1.5;
+            this.speedX = 150;
+            this.speedY = 150;
             this.markedForDeletion = false;
             this.frameTime = 0;
             this.frameX = 0;
@@ -845,8 +846,8 @@ class Obstacle{
             this.markedForDeletion = false;
         }
         
-        update(){
-            this.x -= (this.speedX * this.game.speed);
+        update(deltaTime) {
+            this.x -= (this.speedX * this.game.speed * (deltaTime/1000) );
             if(this.x < -this.game.width +50) this.markedForDeletion = true;           
         }
         
@@ -865,8 +866,8 @@ class Obstacle{
                 this.maxFrame = 4;
                 this.type = 'Bomb';}
 
-            update(){
-                this.x -= (this.speedX * this.game.speed);
+            update(deltaTime) {
+                this.x -= (this.speedX * this.game.speed * (deltaTime/1000) );
                 if(this.x < -this.game.width +50) this.markedForDeletion = true;   
                 const frameDelay = 100;
 
@@ -887,8 +888,8 @@ class Obstacle{
             this.game = game;
             this.width = 60;
             this.height = 60;
-            this.speedX = 1;
-            this.speedY = 1.5;
+            this.speedX = 100;
+            this.speedY = 140;
             this.x = getRandomInt(0, 600);
             this.y = -this.height;
             this.markedForDeletion = false;
@@ -900,8 +901,8 @@ class Obstacle{
         }
 
     update(deltaTime){
-        this.x +=  this.speedX;
-        this.y += this.speedY;
+        this.x +=  this.speedX * this.game.speed * (deltaTime/1000);
+        this.y += this.speedY * this.game.speed * (deltaTime/1000);
         if(this.x > this.game.width +50) this.markedForDeletion = true;
         if(this.y > this.game.height +50) this.markedForDeletion = true;
         
@@ -930,8 +931,8 @@ class Obstacle{
                 this.maxFrame = 3;
                 this.type = 'JetPack';}
 
-            update(){
-                this.x -= (this.speedX * this.game.speed);
+            update(deltaTime) {
+                this.x -= (this.speedX * this.game.speed * (deltaTime/1000) );
                 if(this.x < -this.game.width +50) this.markedForDeletion = true;     
                 const frameDelay = 100;
 
@@ -958,8 +959,8 @@ class Obstacle{
                 this.maxFrame = 5;
                 this.type = 'Heart';
             }
-            update(){
-                this.x -= (this.speedX * this.game.speed);
+            update(deltaTime) {
+                this.x -= (this.speedX * this.game.speed * (deltaTime/1000));
                 if(this.x < -this.game.width +50) this.markedForDeletion = true;      
                 const frameDelay = 100;
 
@@ -1024,8 +1025,8 @@ class Obstacle{
                 this.maxFrame = 2;
                 this.type = 'Raygun';
             }
-            update(){
-                this.x -= (this.speedX * this.game.speed);
+            update(deltaTime) {
+                this.x -= (this.speedX * this.game.speed * (deltaTime/1000));
                 if(this.x < -this.game.width +50) this.markedForDeletion = true;  
                 const frameDelay = 100;
 
@@ -1057,15 +1058,15 @@ class Obstacle{
             this.y = y;
             this.width = 50;
             this.height = 40;
-            this.speed = 3;
-            this.speedY = 1.5;
+            this.speed = 400;
+            this.speedY = 200;
             this.markedForDeletion = false;
             this.image = document.getElementById('projectile');
             
         }
 
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);
             if(this.x > this.game.width - 50) this.markedForDeletion = true;  
         }
 
@@ -1090,8 +1091,8 @@ class Obstacle{
             this.frameY = 0;
             this.type = 'soda';
         }
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
             if(this.x < -this.game.width +50) this.markedForDeletion = true;  
             const frameDelay = 100;
 
@@ -1126,8 +1127,8 @@ class Obstacle{
             this.frameY = 0;
             this.type = 'bottle';
         }
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);; 
             if(this.x < -this.game.width +50) this.markedForDeletion = true;  
             const frameDelay = 100;
 
@@ -1161,8 +1162,8 @@ class Obstacle{
             this.frameY = 0;
             this.type = 'apple';
         }
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
             if(this.x < -this.game.width +50) this.markedForDeletion = true;  
             const frameDelay = 100;
 
@@ -1197,8 +1198,8 @@ class Obstacle{
             this.frameY = 0;
             this.type = 'frog';
         }
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
             if(this.x < -this.game.width +50) this.markedForDeletion = true;  
             const frameDelay = 100;
 
@@ -1232,9 +1233,9 @@ class Obstacle{
             this.image = document.getElementById('laserShot');
         }
 
-        update(){
-            this.x += this.speed;
-            this.y -= this.speedY;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
+            this.y -= this.speedY * this.game.speed * (deltaTime/1000);;
             if(this.x > this.game.width) this.markedForDeletion = true;
         }
 
@@ -1253,8 +1254,8 @@ class Obstacle{
             this.image = document.getElementById('laserShot');
         }
 
-        update(){
-            this.x += this.speed;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
             if(this.x > this.game.width) this.markedForDeletion = true;
         }
 
@@ -1273,9 +1274,9 @@ class Obstacle{
             this.image = document.getElementById('laserShot');
         }
 
-        update(){
-            this.x += this.speed;
-            this.y += this.speedY;
+        update(deltaTime) {
+            this.x += this.speed * this.game.speed * (deltaTime/1000);;
+            this.y += this.speedY * this.game.speed * (deltaTime/1000);;
             if(this.x > this.game.width) this.markedForDeletion = true;
         }
 
@@ -1287,50 +1288,6 @@ class Obstacle{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    class Particle{
-        constructor(game, x, y){
-            this.game = game;
-            this.x = x;
-            this.y = y;
-            this.image = document.getElementById('gears');
-            this.frameX = Math.floor(Math.random() * 3);
-            this.frameY = Math.floor(Math.random() * 3);
-            this.spriteSize = 50;
-            this.sizeModifier = (Math.random() * 0.5 + 0.5).toFixed(1);
-            this.size = this.spriteSize * this.sizeModifier;
-            this.speedX = Math.random() * 6 - 3;
-            this.speedY = Math.random() * -15;
-            this.gravity = 0.35;
-            this.markedForDeletion = false;
-            this.angle = 1;
-            this.va = Math.random() * 0.2 -0.1;
-            this.bounced = 0;
-            this.bottomBounceBoundary = Math.random() * 80 + 60;
-
-        }
-
-        update(){
-            this.angle *= this.va;
-            this.speedY += this.gravity;
-            this.x -= this.speedX + this.game.speed;
-            this.y += this.speedY;
-
-            if(this.y > this.game.height + this.size || this.x < 0 -this.size){
-                this.markedForDeletion = true;}
-
-            if(this.y > this.game.height - this.bottomBounceBoundary && this.bounced < 5) {
-                this.bounced ++;
-                this.speedY *= -0.5;}
-        }
-
-        draw(context){
-            context.save();
-            context.translate(this.x, this.y);
-            context.rotate(this.angle);
-            context.drawImage(this.image, this.frameX * this.spriteSize, this.frameY * this.spriteSize, this.spriteSize, this.spriteSize, this.size * -0.5, this.size * -0.5, this.size, this.size);
-            context.restore();
-        }
-    }
 
     class Alien{
         constructor(game, x, y){
@@ -1343,9 +1300,9 @@ class Obstacle{
             this.spriteSize = 100;
 
             this.size = this.spriteSize 
-            this.speedX = Math.random() * 6 - 3;
-            this.speedY = -3
-            this.gravity = 0.05;
+            this.speedX = Math.random() * 150 - 150;
+            this.speedY = Math.random() * 300 - 300;
+            this.gravity = 350;
             this.markedForDeletion = false;
             this.angle = 0;
             this.va = Math.random() * 0.15 - 0.1;
@@ -1353,11 +1310,11 @@ class Obstacle{
 
         }
 
-        update(){
+        update(deltaTime) {
             this.angle += this.va; // spins (though with va=1, it doesn’t change angle)
-            this.speedY += this.gravity; // gravity pulls it downward more over time
-            this.x -= this.speedX + this.game.speed; // moves left across the screen
-            this.y += this.speedY; // moves vertically based on speedY
+            this.speedY += this.gravity * this.game.speed * (deltaTime/1000);; // gravity pulls it downward more over time
+            this.x -= this.speedX * this.game.speed * (deltaTime/1000); // moves left across the screen
+            this.y += this.speedY * this.game.speed * (deltaTime/1000); ; // moves vertically based on speedY
 
             if(this.y > this.game.height + this.size || this.x < 0 -this.size){
                 this.markedForDeletion = true;}
@@ -1381,26 +1338,26 @@ class Obstacle{
             this.image = document.getElementById('Feather');
             this.frameX = Math.floor(Math.random() * 3);
             this.frameY = 0
-            this.spriteSize = 50;
+            this.spriteSize = 100;
 
             this.size = this.spriteSize 
-            this.speedX = Math.random() * 4 - 2;
-            this.speedY = Math.random() * 1 - 4.5;
-            this.gravity = 0.04;
+            this.speedX = Math.random() * 50 - 50;
+            this.speedY = Math.random() * 250 - 250;
+            this.gravity = 200;
             this.markedForDeletion = false;
  
 
 
         }
 
-        update(){
-             this.speedY += this.gravity; // gravity pulls it downward more over time
+        update(deltaTime) {
+             this.speedY += this.gravity * this.game.speed * (deltaTime/1000);; // gravity pulls it downward more over time
             this.randomize = Math.random();
 
 
-             this.x -= this.speedX + this.game.speed; 
+             this.x -= this.speedX * this.game.speed * (deltaTime/1000); 
             
-            this.y += this.speedY; // moves vertically based on speedY
+            this.y += this.speedY * this.game.speed * (deltaTime/1000); ; // moves vertically based on speedY
 
             if(this.y > this.game.height + this.size || this.x < 0 -this.size){
                 this.markedForDeletion = true;}
@@ -1424,26 +1381,26 @@ class Obstacle{
             this.image = document.getElementById('AcornParticle');
             this.frameX = Math.floor(Math.random() * 3);
             this.frameY = 0
-            this.spriteSize = 60;
+            this.spriteSize = 80;
 
             this.size = this.spriteSize 
-            this.speedX = Math.random() * 4 - 2;
-            this.speedY = Math.random() * 1 - 4.5;
-            this.gravity = 0.04;
+            this.speedX = Math.random() * 500 - 500;
+            this.speedY = Math.random() * 400 - 400;
+            this.gravity = 500;
             this.markedForDeletion = false;
  
 
 
         }
 
-        update(){
-             this.speedY += this.gravity; // gravity pulls it downward more over time
+        update(deltaTime) {
+             this.speedY += this.gravity * this.game.speed * (deltaTime/1000);; // gravity pulls it downward more over time
             this.randomize = Math.random();
 
 
-             this.x -= this.speedX + this.game.speed; 
+             this.x -= this.speedX * this.game.speed * (deltaTime/1000); 
             
-            this.y += this.speedY; // moves vertically based on speedY
+            this.y += this.speedY * this.game.speed * (deltaTime/1000); ; // moves vertically based on speedY
 
             if(this.y > this.game.height + this.size || this.x < 0 -this.size){
                 this.markedForDeletion = true;}
@@ -1470,23 +1427,23 @@ class Obstacle{
             this.spriteSize = 60;
 
             this.size = this.spriteSize 
-            this.speedX = Math.random() * 4 - 2;
-            this.speedY = Math.random() * 1 - 4.5;
-            this.gravity = 0.1;
+            this.speedX = Math.random() * 200 - 100;
+            this.speedY = Math.random() * 450 - 450;
+            this.gravity = 700;
             this.markedForDeletion = false;
  
 
 
         }
 
-        update(){
-             this.speedY += this.gravity; // gravity pulls it downward more over time
+        update(deltaTime) {
+             this.speedY += this.gravity * this.game.speed * (deltaTime/1000);; // gravity pulls it downward more over time
             this.randomize = Math.random();
 
 
-             this.x -= this.speedX + this.game.speed; 
+             this.x -= this.speedX * this.game.speed * (deltaTime/1000); 
             
-            this.y += this.speedY; // moves vertically based on speedY
+            this.y += this.speedY * this.game.speed * (deltaTime/1000); ; // moves vertically based on speedY
 
             if(this.y > this.game.height + this.size || this.x < 0 -this.size){
                 this.markedForDeletion = true;}
@@ -1513,28 +1470,36 @@ class Obstacle{
             this.spriteSize = 20;
 
             this.size = this.spriteSize 
-            this.speedX = Math.random() * 4 - 2;
-            this.speedY = Math.random() * 1 - 4.5;
-            this.gravity = 0.1;
+            this.speedX = Math.random() * 200 - 100;
+            this.speedY = Math.random() * 450 - 450;
+            this.gravity = 700;
             this.markedForDeletion = false;
+
+            this.bounced = 0;
+            this.bottomBounceBoundary = Math.random() * 80 + 60;
  
 
 
         }
 
-        update(){
-             this.speedY += this.gravity; // gravity pulls it downward more over time
+        update(deltaTime) {
+             this.speedY += this.gravity * this.game.speed * (deltaTime/1000);; // gravity pulls it downward more over time
             this.randomize = Math.random();
 
 
-             this.x -= this.speedX + this.game.speed; 
+             this.x -= this.speedX * this.game.speed * (deltaTime/1000);  
             
-            this.y += this.speedY; // moves vertically based on speedY
+            this.y += this.speedY * this.game.speed * (deltaTime/1000); ; // moves vertically based on speedY
 
             if(this.y > this.game.height + this.size || this.x < 0 -this.size){
                 this.markedForDeletion = true;}
 
+                if(this.y > this.game.height - this.bottomBounceBoundary && this.bounced < 5) {
+                    this.bounced ++;
+                    this.speedY *= -0.5;
+
         }
+    }
 
         draw(context){
             context.save();
@@ -1563,13 +1528,13 @@ class Obstacle{
             this.x = 20;
             this.y = -160;
             
-            this.speedX = 0;
+            this.speedX = 0 ;
             this.speedY = 0;
             this.maxSpeed = 2;
             
             this.vy = 0;
-            this.gravity = 0.35;
-            this.jumpStrength = -13;
+            this.gravity = 55;
+            this.jumpStrength = -1900;
             this.grounded = true;
 
             this.projectiles = [];
@@ -1581,7 +1546,7 @@ class Obstacle{
 
     //POWERUP TIMERS
             this.BombPowerUpTimer = 0;
-            this.BombPowerUpLimit = 6000;
+            this.BombPowerUpLimit = 7000;
             this.AirSupportTimer = 0;
             this.AirSupportLimit = 350;
 
@@ -1638,18 +1603,18 @@ class Obstacle{
 
 
 
-            if(this.game.keys.includes('ArrowRight')) this.speedX = 3;
-            else if(this.game.keys.includes('ArrowLeft')) this.speedX = -3;
+            if(this.game.keys.includes('ArrowRight')) this.speedX = 400 * this.game.speed * (deltaTime/1000);
+            else if(this.game.keys.includes('ArrowLeft')) this.speedX = -400 * this.game.speed * (deltaTime/1000);
             else  this.speedX = 0;
 
-            if(this.game.keys.includes('ArrowRight') && this.JetPackPowerUp) this.speedX = 5;
-            else if(this.game.keys.includes('ArrowLeft') && this.JetPackPowerUp) this.speedX = -5;
+            if(this.game.keys.includes('ArrowRight') && this.JetPackPowerUp) this.speedX = 600 * this.game.speed * (deltaTime/1000);
+            else if(this.game.keys.includes('ArrowLeft') && this.JetPackPowerUp) this.speedX = -600 * this.game.speed * (deltaTime/1000);
             
             this.x += this.speedX;
 
     //vertical movement
-            this.vy += this.gravity;
-            this.y += this.vy;
+            this.vy += this.gravity  * this.game.speed * (deltaTime/1000);
+            this.y += this.vy ;
 
     //grounded logic
             if(this.y >= this.game.height -this.height){
@@ -1661,7 +1626,7 @@ class Obstacle{
 
     //JUMPING MECHANIC
             if((this.game.keys.includes('ArrowUp') && this.grounded && this.canJump && !this.JetPackPowerUp)){
-                this.vy = this.jumpStrength;
+                this.vy = this.jumpStrength * this.game.speed * (deltaTime/1000);
                 this.grounded = false;
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
@@ -1691,7 +1656,7 @@ class Obstacle{
 
     //handle projectiles
             this.projectiles.forEach(projectile => {
-                projectile.update();
+                projectile.update(deltaTime) ;
             });
             this.projectiles = this.projectiles.filter(projectile => !projectile.markedForDeletion);
             
@@ -1707,7 +1672,9 @@ class Obstacle{
             }
 
             else {this.frameX = 0;}
-
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
             //power up
     if(this.BombPowerUp){
         
@@ -1749,7 +1716,7 @@ class Obstacle{
                     this.JetPackPowerUp = false;
                     this.JetPackPowerUpTimer = 0;
                     this.image = document.getElementById('raccoon1');
-                    this.gravity = 0.35;                    
+                    this.gravity = 55;                    
                 }}  
 
 
@@ -1794,6 +1761,9 @@ class Obstacle{
                     this.image = document.getElementById('raccoon1');               
                 }}  
 
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
         }
 
         draw(context){      
@@ -1904,7 +1874,7 @@ class Obstacle{
         constructor(game){
             this.game = game;
             this.x = this.game.width;
-            this.speedX = Math.random() * -.5 -0.5;
+            this.speedX = Math.random() * -200 -200;
             
             this.markedForDeletion = false;
             this.frameTime = 0;
@@ -1938,7 +1908,7 @@ class Obstacle{
                 this.explosion1 = 0;
                 this.explosion2 = 0;
                 
-                this.lives = 125; //125
+                this.lives = 1; //125
                 this.livesOG = this.lives;
                 this.score = this.lives;
         }
@@ -1972,7 +1942,7 @@ class Obstacle{
             this.y = this.game.height - this.height;;
         }
          
-        if(this.x > this.game.width - 290) this.x += this.speedX - this.game.speed;
+        if(this.x > this.game.width - 290) this.x += this.speedX * this.game.speed * (deltaTime/1000);
         const frameDelay = 100;
 
             if(this.frameX < this.maxFrame){
@@ -2010,7 +1980,7 @@ class Obstacle{
                 this.explosion1 = 0;
                 this.explosion2 = 0;
                 
-                this.lives = 100; //125
+                this.lives = 1; //125
                 this.livesOG = this.lives;
                 this.score = this.lives;
         }
@@ -2038,7 +2008,7 @@ class Obstacle{
      
                 }}
             
-            if(this.x > this.game.width - 500) this.x += this.speedX - this.game.speed;
+            if(this.x > this.game.width - 500) this.x += this.speedX * this.game.speed * (deltaTime/1000);
             const frameDelay = 200;
     
                 if(this.frameX < this.maxFrame){
@@ -2102,7 +2072,7 @@ class Obstacle{
                 
             METALHIT.currentTime = 0;
 
-        if(this.x > this.game.width - 290) this.x += this.speedX - this.game.speed;
+        if(this.x > this.game.width - 290) this.x += this.speedX * this.game.speed * (deltaTime/1000);
         const frameDelay = 100;
 
             if(this.frameX < this.maxFrame){
@@ -2130,8 +2100,8 @@ class miniBoss{
     constructor(game){
         this.game = game;
         
-        this.speedX = Math.random() * -.5 -0.5;
-        this.speedY = Math.random() * -.5 -0.5;
+        this.speedX = Math.random() * -200 -200;
+        this.speedY = Math.random() * -150 -150;
         
         this.markedForDeletion = false;
         this.frameTime = 0;
@@ -2170,7 +2140,7 @@ class miniOWL extends miniBoss{
             this.score = this.lives;
     }
     update(deltaTime){
-         this.x += this.speedX - this.game.speed;
+         this.x += this.speedX * this.game.speed * (deltaTime/1000);
          if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
        
         
@@ -2178,8 +2148,8 @@ class miniOWL extends miniBoss{
          const randomize = Math.random();
         //the following code uses the randomize variable to decide whether the miniOWLs will
         //fly up or down depending also on their initial y spawn
-         if(randomize < .3 && this.yOG >= 250) this.y += this.speedY - this.game.speed;
-         if(randomize < .6 && this.yOG <= 200) this.y -= this.speedY - this.game.speed;
+         if(randomize < .3 && this.yOG >= 250) this.y += this.speedY * this.game.speed * (deltaTime/1000);
+         if(randomize < .6 && this.yOG <= 200) this.y -= this.speedY * this.game.speed * (deltaTime/1000);
          if(randomize < .9 && this.yOG > 200 && this.yOG < 250) this.y;
        
         const frameDelay = 100;
@@ -2230,7 +2200,7 @@ class miniCOW extends miniBoss{
          if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
                
         if( this.OGx === 500){
-            this.x -= .7;
+            this.x -= 100 * this.game.speed * (deltaTime/1000);
             this.y = 100;
             this.image = document.getElementById('miniCOW');
             this.sound.play();
@@ -2241,34 +2211,34 @@ class miniCOW extends miniBoss{
 
 
         if( this.OGx === 550){
-            this.x -= .8;
-            this.y += .2;
+            this.x -= 110 * this.game.speed * (deltaTime/1000);
+            this.y += 30 * this.game.speed * (deltaTime/1000);
             this.image = document.getElementById('miniCowBrown'); 
             }
 
 
         if( this.OGx === 600){
-            this.x -= .9;
-            this.y += .4;
+            this.x -= 105 * this.game.speed * (deltaTime/1000);
+            this.y += 50 * this.game.speed * (deltaTime/1000);
             this.image = document.getElementById('miniCOW');
             this.sound.play();
             this.sound.currentTime = 0;}
 
 
         if( this.OGx === 650){
-            this.x -= .9;
-            this.y += .5;
+            this.x -= 90 * this.game.speed * (deltaTime/1000);
+            this.y += 70 * this.game.speed * (deltaTime/1000);
             this.image = document.getElementById('miniCowBrown'); }
         if( this.OGx === 700){
-            this.x -= .8;
-            this.y += .6;
+            this.x -= 80 * this.game.speed * (deltaTime/1000);
+            this.y += 80 * this.game.speed * (deltaTime/1000);
             this.image = document.getElementById('miniCOW');
             }
 
 
         if( this.OGx === 750){
-            this.x -=.7
-            this.y += .7;
+            this.x -= 50 * this.game.speed * (deltaTime/1000);
+            this.y += 70 * this.game.speed * (deltaTime/1000);
             this.image = document.getElementById('miniCowBrown'); 
             this.sound.play();
             this.sound.currentTime = 0;
@@ -2303,21 +2273,26 @@ class ACORN extends miniBoss{
             this.height = 60;
             this.y = 207;
             this.image = document.getElementById('ACORN');
-            this.maxFrame = 5;
+            this.maxFrame = 4;
             this.referenceY = 0;
       
             
-            this.lives = 2;
+            this.lives = 1;
             this.score = this.lives;
     }
     update(deltaTime){
         this.referenceY = this.game.player.y;
-         this.x += -2 - this.game.speed;
+         this.x += -300 * this.game.speed * (deltaTime/1000);
+        //  this.y -= -1 - this.game.speed * (deltaTime/1000);
          if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
         
         
-         if(this.referenceY > 300) this.y -= this.speedY - this.game.speed;
-         if(this.referenceY < 200) this.y += this.speedY - this.game.speed;
+
+        //   const randomize = Math.random();
+        //the following code uses the randomize variable to decide whether the miniOWLs will
+        //fly up or down depending also on their initial y spawn
+         if(this.referenceY > 300) this.y -= -200 * this.game.speed * (deltaTime/1000);
+         if(this.referenceY < 200) this.y += -200 * this.game.speed * (deltaTime/1000);
          if(this.referenceY > 200 < 300) this.y;
        
         const frameDelay = 100;
@@ -2361,8 +2336,17 @@ class SquirrelLaser extends miniBoss{
         this.referenceY = this.game.player.y;
          this.x -= 2;
          this.y += this.game.speed;
+        //  this.y -= -1 - this.game.speed;
+         if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
+        
+        
 
-         if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true; 
+        //   const randomize = Math.random();
+        //the following code uses the randomize variable to decide whether the miniOWLs will
+        //fly up or down depending also on their initial y spawn
+        //  if(this.referenceY > 300) this.y -= this.speedY - this.game.speed;
+        //  if(this.referenceY < 200) this.y += this.speedY - this.game.speed;
+        //  if(this.referenceY > 200 < 300) this.y;
 
     }
     draw(context){ 
@@ -2392,14 +2376,16 @@ class miniSQUIRREL extends miniBoss{
     }
     update(deltaTime){
         
-        this.x += this.speedX - this.game.speed;
+        this.x += this.speedX * this.game.speed * (deltaTime/1000);
          if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
         
         
 
          const randomize = Math.random();
-         if(randomize < .3 && this.yOG >= 250) this.y += this.speedY - this.game.speed;
-         if(randomize < .6 && this.yOG <= 250) this.y -= this.speedY - this.game.speed;
+        //the following code uses the randomize variable to decide whether the miniOWLs will
+        //fly up or down depending also on their initial y spawn
+         if(randomize < .3 && this.yOG >= 250) this.y += this.speedY * this.game.speed * (deltaTime/1000);
+         if(randomize < .6 && this.yOG <= 250) this.y -= this.speedY * this.game.speed * (deltaTime/1000);
          if(randomize < .9 && this.yOG <= 250) this.y;
        
         const frameDelay = 100;
@@ -2436,8 +2422,8 @@ class miniSQUIRREL extends miniBoss{
             
         }
 
-        update(){
-            this.x += this.speedX - this.game.speed;
+        update(deltaTime) {
+            this.x += this.speedX - this.game.speed * (deltaTime/1000);
             if(this.x + this.width < 0) this.markedForDeletion = true;
 
             //sprite animation
@@ -2484,7 +2470,7 @@ class miniCOWenemy extends Enemy {
         this.score = this.lives;
         this.type = 'miniCOWenemy';
         this.maxFrame = 6;
-        this.speedY = Math.random() * 0.8 -0.5;
+        this.speedY = Math.random() * 150 + 100;
 
         this.randomizeSound = Math.random();
         this.randomizeSound < 0.5 ? this.sound = MRR.cloneNode() : this.sound = MOO.cloneNode();
@@ -2492,9 +2478,9 @@ class miniCOWenemy extends Enemy {
         this.sound.currentTime = 0;
         this.sound.volume = .6;
     }
-    update(){
+    update(deltaTime) {
         
-        this.y += this.speedY + this.game.speed;
+        this.y += this.speedY * this.game.speed * (deltaTime/1000);
         if(this.y > 510 ) this.markedForDeletion = true;
 
         //sprite animation
@@ -2527,7 +2513,7 @@ class miniCOWenemy extends Enemy {
             this.score = this.lives;
             this.type = 'RAT';
             this.maxFrame = 5;
-            this.speedX = Math.random() * -.5 -0.5;
+            this.speedX = Math.random() * -125 -100;
 
             this.randomSqueak = Math.random();
             if(this.randomSqueak <= 0.45) {
@@ -2542,8 +2528,8 @@ class miniCOWenemy extends Enemy {
 
             
         }
-        update(){
-            this.x += this.speedX - this.game.speed;
+        update(deltaTime) {
+            this.x += this.speedX * this.game.speed * (deltaTime/1000);
             if(this.x + this.width < 0) this.markedForDeletion = true;
 
             //sprite animation
@@ -2573,15 +2559,15 @@ class miniCOWenemy extends Enemy {
             this.lives = 3;
             this.score = this.lives;
             this.type = 'WASP';
-            this.speedX = Math.random() * -3 -1.5;
+            this.speedX = Math.random() * -275 -250;
 
             this.maxFrame = 5;
 
             this.sound = BUZZ.cloneNode(); 
             this.sound.volume = 1;
         }
-        update(){
-            this.x += this.speedX - this.game.speed;
+        update(deltaTime) {
+            this.x += this.speedX * this.game.speed * (deltaTime/1000);
             if(this.x + this.width < 0) {
                 this.markedForDeletion = true;
                 this.sound.pause();
@@ -2604,20 +2590,6 @@ class miniCOWenemy extends Enemy {
 
         }}
 
-    class BEE extends Enemy {
-        constructor(game){
-            super(game);
-            this.width = 60;
-            this.height = 60;
-            this.y = Math.random() * (this.game.height * 0.95 - this.height);
-            this.image = document.getElementById('BEE');
-            this.frameY = 0
-            this.lives = 3;
-            this.score = 15;
-            this.type = 'lucky';
-
-            this.maxFrame = 5;
-        }}
 
         class OPOSSUM extends Enemy {
             constructor(game){
@@ -2630,7 +2602,7 @@ class miniCOWenemy extends Enemy {
                 this.lives = 8;
                 this.score = this.lives;
                 this.type = 'OPOSSUM';
-                this.speedX = Math.random() * -0.8 -0.2;
+                this.speedX = Math.random() * -100 -100;
 
                 this.sound = GROWL.cloneNode();
                 this.sound.volume = 0.25    ;
@@ -2639,8 +2611,8 @@ class miniCOWenemy extends Enemy {
 
                 this.maxFrame = 3;
             }
-            update(){
-                this.x += this.speedX - this.game.speed;
+            update(deltaTime) {
+                this.x += this.speedX * this.game.speed * (deltaTime/1000);
                 if(this.x + this.width < 0) {
                     this.markedForDeletion = true;
                     this.sound.pause();
@@ -2681,7 +2653,7 @@ class miniCOWenemy extends Enemy {
                 this.lives = 1;
                 this.score = this.lives;
                 this.type = 'miniOPOSSUM';
-                this.speedX = Math.random() * -3.2 -2.2;
+                this.speedX = Math.random() * -550 -450;
 
                 this.hasBittenPlayer = false;
 
@@ -2702,8 +2674,8 @@ class miniCOWenemy extends Enemy {
 
                 this.maxFrame = 2;
             }
-            update(){
-                this.x += this.speedX - this.game.speed;
+            update(deltaTime) {
+                this.x += this.speedX * this.game.speed * (deltaTime/1000);
                 if(this.x + this.width < 0) {
                     this.markedForDeletion = true;
                     this.sound.pause();
@@ -2740,9 +2712,9 @@ class miniCOWenemy extends Enemy {
             this.y = 0;
         }
 
-        update(){
+        update(deltaTime) {
             if(this.x <=  -this.width) this.x = 0;
-            this.x -= this.game.speed * this.speedModifier;
+            this.x -= (this.game.speed * (deltaTime/1000)) * this.speedModifier;
         }
 
         draw(context){
@@ -2762,16 +2734,16 @@ class miniCOWenemy extends Enemy {
             this.image35 = document.getElementById('layer35');
             this.image36 = document.getElementById('layer36');
             this.image4 = document.getElementById('layer4');
-            this.layer1 = new Layer(this.game, this.image1, 0.2);
-            this.layer2 = new Layer(this.game, this.image2, 0.3);
-            this.layer3 = new Layer(this.game, this.image3, 0.3);
-            this.layer35 = new Layer(this.game, this.image35, 0.35)
-            this.layer36 = new Layer(this.game, this.image36, 0.45)
-            this.layer4 = new Layer(this.game, this.image4, 1.5);
+            this.layer1 = new Layer(this.game, this.image1, 50);
+            this.layer2 = new Layer(this.game, this.image2, 75);
+            this.layer3 = new Layer(this.game, this.image3, 75);
+            this.layer35 = new Layer(this.game, this.image35, 100)
+            this.layer36 = new Layer(this.game, this.image36, 125)
+            this.layer4 = new Layer(this.game, this.image4, 200);
             this.layers = [this.layer1, this.layer2, this.layer3, this.layer35, this.layer36]; }
 
-        update(){
-            this.layers.forEach(layer => layer.update());}
+        update(deltaTime) {
+            this.layers.forEach(layer => layer.update(deltaTime));}
 
         draw(context){
             this.layers.forEach(layer => layer.draw(context));}
@@ -2789,14 +2761,15 @@ class miniCOWenemy extends Enemy {
             this.height = this.spriteHeight;
             this.x = x - this.width/ 2;
             this.y = y - this.height/ 2;
-            this.fps = 60;
+            
             this.timer = 0;
+            this.fps = 60;
             this.interval = 1000/this.fps;
             this.markedForDeletion = false;
             this.maxFrame = 7; }
 
         update(deltaTime){
-            this.x -= this.game.speed;
+            this.x -= this.game.speed * (deltaTime/1000);
             if(this.timer > this.interval){
                 this.frameX++;
                 this.timer = 0;}
@@ -3106,9 +3079,9 @@ class miniCOWenemy extends Enemy {
 
 
             this.bossTimer = 0;
-            this.bossOWLInterval = 30000;//30000
-            this.bossUFOInterval = 90000;//90000                                         
-            this.bossSQUIRRELInterval = 165000;//165000
+            this.bossOWLInterval = 1000;//30000
+            this.bossUFOInterval = 1000;//90000                                         
+            this.bossSQUIRRELInterval = 1000;//165000
             this.bosses = [];
             this.bossCount = 0;
             this.bossDeaths = 0;
@@ -3119,12 +3092,19 @@ class miniCOWenemy extends Enemy {
             this.UFOIsAlive = false;
             this.SQUIRRELIsAlive = false;
 
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
             this.powerups = [];
             this.powerUpInterval = getRandomInt(5000, 7000);
             this.powerUpTimer = 0;
             this.AirSupportS = [];
 
             this.spacePressed = false;
+
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
 
             this.enemyTimer = 0;
 
@@ -3153,13 +3133,13 @@ class miniCOWenemy extends Enemy {
             
             this.gameTime = 0; //THIS TIME IS WHAT ENEMIES,OBJECT, PLAYER, AND BOSSES USE TO UPDATE
 
-            this.gameTimeX = 260000; //This is used ONLY for the timer for the game
+            this.gameTimeX = 250000; //This is used ONLY for the timer for the game
             this.gameTimeOGX = this.gameTimeX; //This is used ONLY for the timer for the game
             this.timeEnd = 0;       //This is used ONLY for the timer for the game
 
 
             //Increase speed for a potential powerup option
-            this.speed = 1;
+            this.speed = 1 
             this.debug = false;
             this.lives = 10;
             this.MaxLives = 30;
@@ -3191,8 +3171,8 @@ class miniCOWenemy extends Enemy {
             
             
 
-            this.background.update();
-            this.background.layer4.update();
+            this.background.update(deltaTime) ;
+            this.background.layer4.update(deltaTime) ;
             this.player.update(deltaTime);
 
             if(this.ammoTimer > this.ammoInterval){
@@ -3204,27 +3184,27 @@ class miniCOWenemy extends Enemy {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
 //PARTICLES
-        this.particles.forEach(particle => particle.update());
+        this.particles.forEach(particle => particle.update(deltaTime) );
         this.particles = this.particles.filter(particle => !particle.markedForDeletion);
 
 //ALIENS
-        this.aliens.forEach(Alien => Alien.update());
+        this.aliens.forEach(Alien => Alien.update(deltaTime) );
         this.aliens = this.aliens.filter(Alien => !Alien.markedForDeletion);
 
 //FEATHERS
-        this.feathers.forEach(Feather => Feather.update());
+        this.feathers.forEach(Feather => Feather.update(deltaTime) );
         this.feathers = this.feathers.filter(Feather => !Feather.markedForDeletion);
 
 //SPARKS
-        this.sparks.forEach(Spark => Spark.update());
+        this.sparks.forEach(Spark => Spark.update(deltaTime) );
         this.sparks = this.sparks.filter(Spark => !Spark.markedForDeletion);
 
 //SCREWS
-        this.screws.forEach(Screw => Screw.update());
+        this.screws.forEach(Screw => Screw.update(deltaTime) );
         this.screws = this.screws.filter(Screw => !Screw.markedForDeletion);
 
 //AcornSingle
-        this.acornSingles.forEach(AcornSingle => AcornSingle.update());
+        this.acornSingles.forEach(AcornSingle => AcornSingle.update(deltaTime) );
         this.acornSingles = this.acornSingles.filter(AcornSingle => !AcornSingle.markedForDeletion);
 //DAMAGE
         this.damages.forEach(Damage => Damage.update(deltaTime));  //deltatime ALLOWS DELETION OF THE Damage sprite
@@ -3237,6 +3217,9 @@ class miniCOWenemy extends Enemy {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //WORK ZONE
+        //WORK ZONE
+        //WORK ZONE
 
 
 //AIR SUPPORT/BOMB COLLISIONS
@@ -3246,16 +3229,16 @@ class miniCOWenemy extends Enemy {
 this.AirSupportS = this.AirSupportS.filter(AirSupport => !AirSupport.markedForDeletion);
 
 this.AirSupportS.forEach(AirSupport => {
-    AirSupport.update();
+    AirSupport.update(deltaTime) ;
     this.enemies.forEach(enemy =>{
 
         //          --NOTE--
         //     DO NOT ADD THIS HERE 
-        //       enemy.update(); 
+        //       enemy.update(deltaTime) ; 
         // ^^^ DO NOT ADD THIS HERE ^^^ 
         // THIS MAKES THE ENEMY UPDATE AGAIN FOR EVERY AIRSUPPORT THAT IS UPDATED
         // THIS CAUSES THE ENEMY CLASS TO SPEED UP BECAUSE IT WILL BE MOVING TWICE(or more) AS FAST
-        // The enemy.update(); is already called below and that is ENOUGH
+        // The enemy.update(deltaTime) ; is already called below and that is ENOUGH
 
 if (this.checkAirSupportCollision(AirSupport, enemy)) {
 
@@ -3294,11 +3277,15 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
     });
 
 
+    //WORK ZONE
+    //WORK ZONE
+    //WORK ZONE
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
 //ENEMY COLLISIONS
         this.enemies.forEach(enemy =>{
-            enemy.update();
+            enemy.update(deltaTime) ;
             
             if(!this.player.JetPackPowerUp){
             if(this.checkCollision(this.player, enemy)){
@@ -3331,6 +3318,9 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                 this.addExplosion(enemy);
                 this.addDeathSound(enemy);
                 PLAYERHURT.play();
+
+            // if(enemy.type === 'lucky' && this.lives < this.MaxLives) {
+            //     this.lives += 1;}
 
             if(!this.gameOver && enemy.type === 'OPOSSUM') {
                 this.score--;
@@ -3367,7 +3357,7 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                     return;
                 }
 
-                const knockbackPower = 3; 
+                const knockbackPower = 3; // Higher = stronger knockback
 
                 if (this.player.x < enemy.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3425,8 +3415,14 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                         this.addExplosion(projectile);
                         HIT.play();
                         HIT.currentTime = 0;}
+    
 
+                    //this.particles.push(new Particle(this, enemy.x + enemy.width/2, enemy.y + enemy.height/2));
                 if(enemy.lives <= 0){
+                    //every time enemy dies, gears explode out
+                    // for(let i = 0; i < enemy.score; i++){
+                    //     this.particles.push(new Particle(this, enemy.x + enemy.width/2, enemy.y + enemy.height/2));
+                    // }
 
                         enemy.markedForDeletion = true;
                         this.addExplosion(enemy);
@@ -3443,15 +3439,19 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                             
                     if(!this.gameOver) this.score += enemy.score;
                     }
+                    //winningscore
                 }})
             });
             
             
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
 //PowerUp Collisions
         this.powerups.forEach(powerup => {
-            powerup.update();
+            powerup.update(deltaTime) ;
             
             if(this.checkPowerUpCollision(this.player, powerup)){
                 
@@ -3487,7 +3487,7 @@ const randomize = Math.random();
                 }
             else if(randomize < 0.5) {this.addJetPack(getRandomInt(200, 350)); //.5
                 }
-            else if(randomize < 0.8) {this.addHeart(getRandomInt(200, 350));  //.8
+            else if(randomize < 0.75) {this.addHeart(getRandomInt(200, 350));  //.75
                 }
             else if(randomize < 1) {this.addBomb(getRandomInt(200, 350));   //1
                 }
@@ -3499,11 +3499,15 @@ const randomize = Math.random();
         }
 
 
+//WORK ZONE
+//WORK ZONE
+//WORK ZONE
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 this.bosses.forEach(Boss =>{
-    Boss.update();
+    Boss.update(deltaTime) ;
 
     if(this.checkCollision(this.player, Boss)){
     this.lives--;
@@ -3571,6 +3575,7 @@ this.bosses.forEach(Boss =>{
                 }
             if(Boss.lives <= 0){
                 this.bossDeaths++;
+                // this.addHeart(350);
 
                 if(Boss instanceof OWL){
                     FeatherPoof.play();
@@ -3613,10 +3618,10 @@ this.bosses.forEach(Boss =>{
                 });
 
     this.miniBosses.forEach(miniBoss =>{
-        miniBoss.update();
+        miniBoss.update(deltaTime) ;
         if(this.checkCollision(this.player, miniBoss)){
 
-            const knockbackPower = 3; 
+            const knockbackPower = 3; // Higher = stronger knockback
 
     if (this.player.x < miniBoss.x) {
         this.player.knockbackX = -knockbackPower;
@@ -3655,6 +3660,7 @@ this.bosses.forEach(Boss =>{
                     projectile.markedForDeletion = true;   
                     this.addExplosion(projectile); 
                      if(miniBoss.lives <= 0){
+                    //every time enemy dies, gears explode out
                     
     
                     miniBoss.markedForDeletion = true;
@@ -3681,7 +3687,7 @@ this.bosses.forEach(Boss =>{
             this.PlatformTimer += deltaTime;}
 
 //Platform Collision
-        //The code right under this is meant to ensure that the 'update()' function in any class is called (Every class needs its own  version)
+        //The code right under this is meant to ensure that the 'update(deltaTime) ' function in any class is called (Every class needs its own  version)
         this.player.grounded = false;
         this.Platforms.forEach(Platform =>{
             Platform.update(deltaTime);
@@ -3715,10 +3721,10 @@ this.bosses.forEach(Boss =>{
 
 //Obstacle Collision 
             this.Obstacles.forEach(Obstacle =>{
-                Obstacle.update();
+                Obstacle.update(deltaTime) ;
             if(!this.player.JetPackPowerUp){
             if(this.checkGnomeCollision(this.player, Obstacle)){
-                const knockbackPower = 5; 
+                const knockbackPower = 5; // Higher = stronger knockback
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3740,7 +3746,7 @@ this.bosses.forEach(Boss =>{
             }}
             if(this.player.JetPackPowerUp){
             if(this.checkGnomeJetPackCollision(this.player, Obstacle)){
-                const knockbackPower = 5; 
+                const knockbackPower = 5; // Higher = stronger knockback
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3771,7 +3777,7 @@ this.bosses.forEach(Boss =>{
         this.enemies.forEach(enemy => {
             if (enemy.markedForDeletion && enemy.sound) {
                 enemy.sound.pause();
-                enemy.sound.currentTime = 0; // reset to beginning
+                enemy.sound.currentTime = 0; // optional: reset to beginning
             }
         });
         this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
@@ -3837,7 +3843,10 @@ this.bosses.forEach(Boss =>{
         this.bosses.forEach(Boss =>{
             if(this.gameOver){
                 this.bosses = this.bosses.filter(Boss => Boss.markedForDeletion);
-
+                // for(let i = 0; i < Boss.score; i++){
+                // this.explosions.push(new SmokeExplosion(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));
+                // this.explosions.push(new FireExplosion(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));
+                // }
                 if(Boss instanceof OWL){
                     for(let i = 0; i < 20; i++){
                         const offsetX = Math.random() * 200 - 25;
@@ -3854,6 +3863,10 @@ this.bosses.forEach(Boss =>{
                     } }
 
 
+        //             else{
+        //                 for(let i = 0; i < Boss.score; i++){
+        //                     //this.particles.push(new Particle(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));}
+        //     }
          }
         });       
 
@@ -3924,6 +3937,14 @@ this.bosses.forEach(Boss =>{
             
         }
 
+       if( this.bosses[0].frameX === 6 && this.squirrelLaserCount === 0){
+       // this.addSquirrelLaser();
+        this.squirrelLaserCount = 1;
+
+     //THIS makes sure that only ONE acorn spawns at a time when the slingshot is shot
+    }
+            else if(this.bosses[0].frameX === 7) 
+            {this.squirrelLaserCount = 0;}
 
     if(this.miniBossTimer >= this.miniSQUIRRELBossInterval){
         this.addMiniSQUIRREL();
@@ -4004,7 +4025,9 @@ this.bosses.forEach(Boss =>{
                 Platform.draw(context); 
             });
 
-
+    //WORK ZONE
+    //WORK ZONE
+    //WORK ZONE
     this.AirSupportS.forEach(AirSupport =>{
         AirSupport.draw(context)
     });
@@ -4012,7 +4035,9 @@ this.bosses.forEach(Boss =>{
     this.powerups.forEach(powerup =>{
         powerup.draw(context);
     });
-
+    //WORK ZONE
+    //WORK ZONE
+    //WORK ZONE
 
             //obstacles
             this.Obstacles.forEach(Obstacle =>{
@@ -4069,7 +4094,9 @@ this.bosses.forEach(Boss =>{
     addSquirrelLaser(){
         this.miniBosses.push(new SquirrelLaser(this));
     }
-
+    //WORK ZONE
+    //WORK ZONE
+    //WORK ZONE
     addBomb(y){
         this.powerups.push(new Bomb(this, y));}
     addJetPack(y){
@@ -4086,7 +4113,9 @@ this.bosses.forEach(Boss =>{
 
     addRaygun(y){
         this.powerups.push(new Raygun(this, y));}
-
+    //WORK ZONE
+    //WORK ZONE
+    //WORK ZONE
         addEnemy(){
             const randomize = Math.random();
             if(randomize < 0.2){//.2
@@ -4106,7 +4135,7 @@ this.bosses.forEach(Boss =>{
             else if(randomize < 1) {
                 this.enemies.push(new OPOSSUM(this));
                 }
-  
+
         } 
        
         addPlatform(){ 
@@ -4264,7 +4293,7 @@ function setupGame() {
         game.speed = 1; // reset speed
         gamePaused = false;
 
-        game.background = new Background(game); // Reinitialize background
+        game.background = new Background(game); // Reinitialize background with fresh state
         game.player = new Player(game); 
 
         
@@ -4283,6 +4312,9 @@ function setupGame() {
     Music.playbackRate = 1;
     Music.play();
 
+
+
+    // Add any other necessary resets here
 }
 
 // Animation loop
