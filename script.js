@@ -17,6 +17,8 @@ const canvas2 = document.getElementById ('canvas2');
 
 
 
+
+
 cursorSW.style.pointerEvents = 'none';
 document.addEventListener('mouseenter', () => { 
     if(!gameRunning || gamePaused) cursorSW.style.display = 'block'; 
@@ -1526,15 +1528,15 @@ class Obstacle{
             this.width = 200;
             this.height = 150;
             this.x = 20;
-            this.y = -160;
+            this.y = 0;
             
             this.speedX = 0 ;
             this.speedY = 0;
             this.maxSpeed = 2;
             
             this.vy = 0;
-            this.gravity = 55;
-            this.jumpStrength = -1900;
+            this.gravity = 7000;
+            this.jumpStrength = -1800;
             this.grounded = true;
 
             this.projectiles = [];
@@ -1613,7 +1615,7 @@ class Obstacle{
             this.x += this.speedX;
 
     //vertical movement
-            this.vy += this.gravity * (deltaTime / 1000);;
+            this.vy += this.gravity * (deltaTime / 1000);
             this.y += this.vy  * this.game.speed * (deltaTime/1000);
 
     //grounded logic
@@ -1631,7 +1633,7 @@ class Obstacle{
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 7}
+                this.y += 10}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
                 this.y += 700 * this.game.speed * (deltaTime/1000);}
@@ -1716,7 +1718,7 @@ class Obstacle{
                     this.JetPackPowerUp = false;
                     this.JetPackPowerUpTimer = 0;
                     this.image = document.getElementById('raccoon1');
-                    this.gravity = 55;                    
+                    this.gravity = 7000;                    
                 }}  
 
 
@@ -3207,7 +3209,7 @@ class miniCOWenemy extends Enemy {
         this.acornSingles.forEach(AcornSingle => AcornSingle.update(deltaTime) );
         this.acornSingles = this.acornSingles.filter(AcornSingle => !AcornSingle.markedForDeletion);
 //DAMAGE
-        this.damages.forEach(Damage => Damage.update(deltaTime));  //deltatime ALLOWS DELETION OF THE Damage sprite
+        this.damages.forEach(Damage => Damage.update(deltaTime));  //deltaTime ALLOWS DELETION OF THE Damage sprite
         this.damages = this.damages.filter(Damage => !Damage.markedForDeletion);
 
 //EXPLOSIONS
@@ -3301,14 +3303,14 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
             //this means it won't ever mark the miniopossum for deletion or add explosions
             //it starts the check again and checks a new miniOpossum or other entity's properties
                 }
-                const knockbackPower = 3; // Higher = stronger knockback
+                const knockbackPower = 700; // Higher = stronger knockback
 
                 if (this.player.x < enemy.x) {
                     this.player.knockbackX = -knockbackPower;
-                    this.player.knockbackY = -5; 
+                    this.player.knockbackY = -700; 
                 } else {
                     this.player.knockbackX = knockbackPower;
-                    this.player.knockbackY = -5; 
+                    this.player.knockbackY = -700; 
                 }
                 this.player.isKnockedBack = true;
                 this.player.knockbackTimer = 20;
@@ -3357,14 +3359,14 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                     return;
                 }
 
-                const knockbackPower = 3; // Higher = stronger knockback
+                const knockbackPower = 700; // Higher = stronger knockback
 
                 if (this.player.x < enemy.x) {
                     this.player.knockbackX = -knockbackPower;
-                    this.player.knockbackY = -5; 
+                    this.player.knockbackY = -700; 
                 } else {
                     this.player.knockbackX = knockbackPower;
-                    this.player.knockbackY = -5; 
+                    this.player.knockbackY = -700; 
                 }
                 this.player.isKnockedBack = true;
                 this.player.knockbackTimer = 20;
@@ -3514,23 +3516,31 @@ this.bosses.forEach(Boss =>{
     PLAYERHURT.play();
     this.addExplosion(this.player);
 
-    const knockbackPower = 20; // Higher = stronger knockback
-    const knockbackPowerY = 15;
+    const knockbackPower = 3000; // Higher = stronger knockback
+    const knockbackPowerY = 2000;
 
     // Determine direction
     if(Boss instanceof OWL || Boss instanceof SQUIRREL){
 
     if (this.player.x < Boss.x) {
         this.player.knockbackX = -knockbackPower;
-        this.player.knockbackY = -5; 
+        this.player.knockbackY = -knockbackPowerY; 
     } else {
         this.player.knockbackX = knockbackPower;
-        this.player.knockbackY = -5; 
+        this.player.knockbackY = -knockbackPowerY; 
     }}
 
     else{
-        if (this.player.y < Boss.y + Boss.height) {
-        this.player.knockbackY = knockbackPowerY;}}
+        if (this.player.y < Boss.y + Boss.height && this.player.y > Boss.y + Boss.height - 100 ) {
+        this.player.knockbackY = 3000;}
+        else if (this.player.x < Boss.x) {
+            this.player.knockbackX = -knockbackPower;
+            this.player.knockbackY = -knockbackPowerY; 
+        } else {
+            this.player.knockbackX = knockbackPower;
+            this.player.knockbackY = -knockbackPowerY; }
+    
+    }
 
     
 
@@ -3621,14 +3631,14 @@ this.bosses.forEach(Boss =>{
         miniBoss.update(deltaTime) ;
         if(this.checkCollision(this.player, miniBoss)){
 
-            const knockbackPower = 3; // Higher = stronger knockback
+            const knockbackPower = 700; // Higher = stronger knockback
 
     if (this.player.x < miniBoss.x) {
         this.player.knockbackX = -knockbackPower;
-        this.player.knockbackY = -5; 
+        this.player.knockbackY = -700; 
     } else {
         this.player.knockbackX = knockbackPower;
-        this.player.knockbackY = -5; 
+        this.player.knockbackY = -700; 
     }
     this.player.isKnockedBack = true;
     this.player.knockbackTimer = 20;
@@ -3724,14 +3734,14 @@ this.bosses.forEach(Boss =>{
                 Obstacle.update(deltaTime) ;
             if(!this.player.JetPackPowerUp){
             if(this.checkGnomeCollision(this.player, Obstacle)){
-                const knockbackPower = 5; // Higher = stronger knockback
+                const knockbackPower = 700; // Higher = stronger knockback
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
-                    this.player.knockbackY = -10; 
+                    this.player.knockbackY = -700; 
                 } else {
                     this.player.knockbackX = knockbackPower;
-                    this.player.knockbackY = -10; 
+                    this.player.knockbackY = -700; 
                 }
                 this.player.isKnockedBack = true;
                 this.player.knockbackTimer = 20;
@@ -3746,14 +3756,14 @@ this.bosses.forEach(Boss =>{
             }}
             if(this.player.JetPackPowerUp){
             if(this.checkGnomeJetPackCollision(this.player, Obstacle)){
-                const knockbackPower = 5; // Higher = stronger knockback
+                const knockbackPower = 700; // Higher = stronger knockback
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
-                    this.player.knockbackY = -10; 
+                    this.player.knockbackY = -700; 
                 } else {
                     this.player.knockbackX = knockbackPower;
-                    this.player.knockbackY = -10; 
+                    this.player.knockbackY = -700; 
                 }
                 this.player.isKnockedBack = true;
                 this.player.knockbackTimer = 20;
@@ -4321,13 +4331,14 @@ function setupGame() {
 function animate(timeStamp) {
     if (!gameRunning || gamePaused) return;
     
-    const deltaTime = timeStamp - lastTime;
+    let deltaTime   = timeStamp - lastTime;
+    if (deltaTime > 50) deltaTime = 50; 
     lastTime = timeStamp;
 
 
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    game.update(deltaTime);
+    game.update(deltaTime );
     game.draw(ctx);
 
     animationFrameId = requestAnimationFrame(animate);
