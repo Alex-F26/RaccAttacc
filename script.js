@@ -1633,7 +1633,7 @@ class Obstacle{
                 this.canJump = false;} 
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 45}
+                this.y += 42}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
                 this.y += 700 * this.game.speed * (deltaTime/1000);}
