@@ -1,0 +1,1723 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    cursor: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: black; /* make sure background is black */
+}
+
+
+
+#canvas1, #canvas2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 2;
+    height: 80%;
+    box-shadow: 0 0 20px aqua;
+    border: 2px solid aqua;
+
+}
+
+#canvas1 {
+
+    background: black;
+    font-family: "Jaro", sans-serif;
+}
+
+#canvas2 {
+    
+    background: rgba(56, 56, 56, 0.7);  /* to make transparent, you need to use rgba, cant use a color name */
+    
+}
+
+.custom-cursor {        
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.site-wide {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid aqua;
+    box-shadow: 0 0 10px aqua;
+}
+
+.site-wide .pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background-color: aqua;
+    box-shadow: 0 0 10px aqua;
+    transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+}
+
+.site-wide.active .pointer { /* this adds the effect that fills in the cursor circle */
+    width: 15px;
+    height: 15px;
+}
+
+.site-wide.hovering-button {
+    transform: scale(1.5);
+    border-color: lime;
+    box-shadow: 0 0 5px black;
+}
+
+.site-wide.hovering-button .pointer {
+    background-color: lime;
+    box-shadow: 0 0 5px black;
+}
+
+.site-wide.hovering-button.active .pointer {
+    width: 15px;
+    height: 15px;
+}
+
+#layer1, #layer2, #layer3, #layer35, #layer36, #layer4, #player, #angler1, #angler2, #lucky, #projectile, #gears, #hivewhale, #drone, #smokeExplosion, #fireExplosion, #raccoon1, #secondProjectile, 
+#plat1, #plat2, #plat3, #gnomes1,#gnomes2,#gnomes3, #OWL, #UFO,#miniOWL,#miniCOW,#SQUIRREL, #ACORN, #miniSQUIRREL,
+#Bomb, #Raygun, #JetPack, #Heart, #raccoonJet1, #raccoonJet2, #HealthRing, #flyingRaygun, #groundedRaygun, #laserShot, #soda, #frog,#raccoon2,
+#bottle, #apple, #AirSupport, #featherExplosion, #miniCowBrown, #acornExplosion, #Alien, #Feather, #AcornParticle, #Spark, #Screw, #DamageFly, #DamageGro, #UFO60, #UFO90,
+#OWL60, #OWL90, #SquirrelLaser, #SQUIRREL60, #SQUIRREL90, #WASP, #BEE, #RAT, #OPOSSUM, #miniOPOSSUM, #ProjectileExplosion, #GnomeExplosion
+{
+    display: none;
+}
+
+
+
+
+button {
+    position: absolute;
+    z-index: 5;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    background: #B6EDFD;
+    color: #000;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    border-radius: 40px;
+    cursor: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: 175px;
+}
+
+button:hover {
+    background: rgb(0, 221, 0);
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Individual buttons positioning */
+#RestartButton {
+    top: 465%;
+    left: -55%;
+}
+
+#QuitButton {
+    top: 465%;
+    left: 55%;
+}
+
+#ResumeButton,
+.StartButton,
+#HTPButton,
+#INFOButton,
+#SettingsButton {
+    width: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#ResumeButton { top: 140%; }
+.StartButton { top: 140%; }
+#HTPButton { top: 230%; }
+#INFOButton { top: 320%; }
+#SettingsButton { top:410%; }
+
+#PauseButton {
+    top: 96%;
+    left: 10%;
+    transform: translate(-10%, -98%);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 1px 1px;
+    border-radius: 5px;
+    background: aqua;
+    box-shadow: 0 0 20px aqua;
+}
+
+.menu {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    color: #000;
+    text-shadow: 0 0 5px aqua;
+
+    text-align: center;
+    font-family: "Jaro", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.main-menu-img {
+    position: absolute;
+}
+
+.raccoon {
+    top: -20px;
+    left: -100px;
+}
+
+.alien {
+    top: -25px;
+    left: 165px;
+}
+
+.cow {
+    top: 100px;
+    left: 290px;
+}
+
+.cow-brown {
+    top: 175px;
+    left: -200px;
+}
+
+
+.Settings {
+
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* center  */
+    z-index: 4; /* WAY above both canvases */
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+    
+    padding: 5px;
+    border-radius: 10px;
+    color: lightgray;
+    text-align: center;
+    width: 700px; /* set width manually */
+    height: 350px; /* height adjusts to text */
+    
+}
+#difficultyNormalButtonACTIVE{
+    position: absolute;
+    top: 200px;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    background: #000000;
+    color: magenta;
+    border: 1px solid #000;
+    border-radius: 40px;
+    outline: none;
+    padding: 4px;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    cursor: pointer;
+    width: 100px;
+    height: auto;
+
+
+}
+#difficultyHardButtonACTIVE {
+    position: absolute;
+    top: 250px;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    background: #000000;
+    color: red;
+    border: 1px solid #000;
+    border-radius: 40px;
+    outline: none;
+    padding: 4px;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    cursor: pointer;
+    width: 100px;
+    height: auto;
+
+}
+
+
+.difficultyNormalButton {
+    position: absolute;
+    top: 200px;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    background: #505050;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 40px;
+    outline: none;
+    padding: 4px;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    cursor: none;
+    width: 100px;
+    height: auto;
+    transition: opacity 0.2s;
+}
+
+.difficultyNormalButton:hover {
+    color: magenta;
+    border-color: magenta;
+    background-color: #505050;
+}
+
+.normalDifficultyWrapper {
+    position: relative;
+}
+
+
+
+#normalHiddenMessage {
+
+    position: absolute;
+    top: 15px;
+    left: 80%;
+    width: 400px;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: rgb(255, 54, 255);
+    z-index: 10;
+}
+#normalHiddenMessage p {
+    margin: 4px 0;
+    position: relative;
+    top: 0px;
+    left: -5%;
+}
+
+.difficultyHardButton {
+    position: absolute;
+    top: 250px;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    background: #505050;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 40px;
+    outline: none;
+    padding: 4px;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    cursor: none;
+    width: 100px;
+    height: auto;
+    transition: opacity 0.2s;
+}
+
+.difficultyHardButton:hover {
+    color: red;
+    border-color: red;
+    background-color: #505050;
+}
+
+.hardDifficultyWrapper {
+    position: relative;
+}
+
+
+#HardHiddenMessage {
+
+    position: absolute;
+    top: 120%;
+    left: 100%;
+    width: 400px;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: red;
+    z-index: 9;
+}
+
+#HardHiddenMessage p {
+    margin: 1px 0;
+    position: relative;
+    top: -90px;
+    left: -12%;
+}
+
+.slider {
+    position: absolute;
+    top: 14%; /* near bottom of 720px */
+    left: 30%;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.sliderMessage {
+    position: absolute;
+    top: 2%;
+    left: 15%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 3px;
+    width: 510px;
+}
+
+.difficultyMessage {
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 3px;
+    width: 510px;
+}
+
+.MusicMessage{
+    position: absolute;
+    top: 18%;
+    left: 12%;
+    color: red;
+    font-size: 13px;
+    font-family: "Jaro", sans-serif;
+    background-color:none;
+    border-radius: 5%;
+    padding: 5px;
+    width: 550px;
+}
+
+#musicSelect {
+    position: absolute;
+    top:12%;
+    left: 16%;
+    padding: 4px;
+    background: #B6EDFD;
+    font-family: "Jaro", sans-serif;
+}
+
+#musicSelect:hover{
+    cursor: none;
+    background: #8fe5ff;
+}
+
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+    cursor: none;
+}
+
+.backButtonSettings{
+    position:absolute;
+    background-color: aqua;
+    border-radius: 25%;
+    top: 87%;
+    left: 40%;
+    width: 140px;
+    height: auto;
+    font-size: 12px;
+    font-family: "Jaro", sans-serif;
+    z-index: 11;
+}
+
+.HTP {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* center  */
+    z-index: 4; /* WAY above both canvases */
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+    
+    padding: 5px;
+    border-radius: 10px;
+    color: lightgray;
+    text-align: center;
+    
+    width: 1000px; /* set width manually */
+    height: 600px; /* height adjusts to text */   
+}
+
+.RACCGROUNDHTP{
+    position:absolute;
+    top: 45%;
+    left: 0%;
+    width: 200px;
+    height: 25%;
+}
+#RACCFLYHTP{
+    position:absolute;
+    top: 47%;
+    left: 16%;
+    width: 200px; 
+    height: 25%;
+}
+.JETPACKHTP{
+    position:absolute;
+    top: 50%;
+    left: 25%;
+    width: 80px;
+    height: 15%;
+}
+
+.jet-container:hover #JETPACKHTP {
+    display: none;
+  }
+  
+.jet-container:hover #RACCFLYHTP {
+    display: block;
+  }
+.PLATFORMHTP{
+    position:absolute;
+    top: 55%;
+    left: 85%;
+}
+.WASPHTP{
+    position:absolute;
+    top: 50%;
+    left: 55%;
+    width: 80px; 
+    height: 15%;
+}
+.OWLHTP{
+    position:absolute;
+    top: 50%;
+    left: 40%;
+    width: 100px; 
+    height: 15%;
+}
+#MINIOWLHTP{
+    position:absolute;
+    top: 55%;
+    left: 41%;
+}
+
+.owl-container:hover #OWLHTP {
+    display: none;
+  }
+  
+.owl-container:hover #MINIOWLHTP {
+    display: block;
+  }
+.GNOMESHTP{
+    position:absolute;
+    top: 50%;
+    left: 75%;
+    width: 50px;
+    height: 15%;
+}
+
+.ARROWS{
+    position:relative;
+    top: -5%;
+    left: -20%;
+    width: 125px;
+    height: 20%;
+
+}
+.SPACEBAR{
+    position:relative;
+    top: -5%;
+    left: -2%;
+    width: 175px;
+    height: 20%;
+}
+
+.TAB{
+    position:relative;
+    top: -7%;
+    left: 15%;
+    width: 100px;
+    height: 15%;
+}
+
+.ControlsMessage {
+    position: relative;
+    top: 2%;
+    left: 25%;
+    color: aqua;
+    font-size: 20px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 5px;
+    width: 510px;
+    height: auto;
+}
+
+.TipsMessage {
+    position: relative;
+    top: 34%;
+    left: 25%;
+    color: aqua;
+    font-size: 20px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 5px;
+    width: 510px;
+}
+
+.WASD:hover{
+    opacity: .8;
+}
+.ARROWS:hover{
+    opacity: .8;
+}
+.SPACEBAR:hover{
+    opacity: .8;
+}
+
+.TAB:hover{
+    opacity: .8;
+}
+
+.backButtonHTP{
+    position:absolute;
+    background-color: aqua;
+    border-radius: 2%;
+    top: 1%;
+    left: 1%;
+    width: 120px;
+    height: 30px;
+    font-size: 10px;
+    font-family: "Jaro", sans-serif;
+}
+
+.WASDmessage, .SPACEBARmessage, .TABmessage, .JETPACKHTPmessage, .GNOMESHTPmessage, .OWLHTPmessage, .MoreInfo{
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+}
+
+.WASDmessage{
+
+    position: absolute;
+    top: 25%;
+    left: 4%;
+    
+
+    border-radius: 5%;
+    padding: 5px;
+    width: 240px;
+    height: auto;
+}
+.SPACEBARmessage{
+    position: absolute;
+    top: 25%;
+    left: 37%;
+    
+
+    border-radius: 5%;
+    padding: 5px;
+    width: 250px;
+    height: auto;
+}
+.TABmessage{
+
+    position: absolute;
+    top: 25%;
+    left: 72%;
+
+
+    border-radius: 5%;
+    padding: 5px;
+    width: auto;
+    height: auto;
+}
+
+.JETPACKHTPmessage{
+
+    position: absolute;
+    top: 67%;
+    left: 4%;
+
+
+    border-radius: 5%;
+    padding: 5px;
+    width: 30%;
+    height: auto;
+}
+.GNOMESHTPmessage{
+
+    position: absolute;
+    top: 67%;
+    left: 70%;
+    width: 28%;
+    height: auto;
+
+
+    border-radius: 5%;
+    padding: 5px;
+    
+}
+.OWLHTPmessage{
+
+    position: absolute;
+    top: 67%;
+    left: 37%;
+
+
+    border-radius: 5%;
+    padding: 5px;
+    width: 300px;
+    height: auto;
+
+}
+
+.MoreInfo{
+    position: absolute;
+    top: 90%;
+    left: 39%;
+    color: aqua;
+    background-color: rgba(41, 41, 41, 0.7);
+    
+    border-radius: 5%;
+    padding: 5px;
+    width: auto;
+    height: auto;
+
+}
+
+.MoreInfo:hover{
+    background-color: rgba(99, 99, 99, 0.7);
+}
+
+
+
+.INFO {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* center  */
+    z-index: 4; /* WAY above both canvases */
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+    padding: 5px;
+    border-radius: 10px;
+    color: lightgray;
+    text-align: center;
+    width: 1250px; /* set width manually MAKE SURE IT IS PIXELS SO THAT IT DOES NOT REZISE AND MESS UP "RELATIVE" ELEMENTS*/
+    height: 650px; /* height adjusts to text */
+
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    text-decoration:underline;
+    
+}
+
+.Lore {
+    position: absolute;
+    top: 1%;
+    left: 2%;
+    color: aqua;
+    font-size: 18px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 3px;
+    width: 600px;
+    height: auto;
+}
+.LoreMessage{
+    position: absolute;
+    top: 7%;
+    left:7%;
+    text-align: center;
+    color: aqua;
+    font-size: 14px;
+    font-family: "Jaro", sans-serif;
+    background-color: black;
+    width: 500px;
+}
+
+
+.Credits {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    color: aqua;
+    font-size: 18px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 3px;
+    width: 600px;
+    height: auto;
+}
+.CreditsMessage{
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    text-align: center;
+    color: pink;
+    font-size: 14px;
+    font-family: "Jaro", sans-serif;
+    background-color: black;
+
+    width: 600px;
+    height: auto;
+
+}
+
+
+
+.Bosses {
+    position: absolute;
+    
+    top: 30%;
+    left: 2%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(92, 92, 92, 0.7);
+    border-radius: 5%;
+    padding: 3px;
+    width: 1200px;
+    height: auto;
+}
+.Enemies {
+    position: absolute;
+    z-index: 4;
+    top: 30%;
+    left: 5%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    border-radius: 5%;
+    padding: 3px;
+    width: 250px;
+    height: auto;
+}
+.PowerUps {
+    position: absolute;
+    z-index: 4;
+    top: 30%;
+    left: 72%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    border-radius: 5%;
+    padding: 3px;
+    width: 250px;
+    height: auto;
+}
+
+
+.backButtonINFO{
+    position:absolute;
+    background: none;
+    background-color: none;
+    border-radius: 5%;
+    color: lime;
+    top: 0%;
+    left: 2%;
+    width: 75px;
+    height: 40px;
+    font-size: 18px;
+    font-family: "Jaro", sans-serif;
+}
+
+.backButtonINFO:hover{
+    transition:  border-left 0.2s;
+    background-color: aqua;
+    color: black;
+}
+
+
+.EnemyNextButtonLeft{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 5%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-right: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.EnemyNextButtonLeft:hover {
+    border-right: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+.EnemyNextButtonRight{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 25%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-left: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.EnemyNextButtonRight:hover {
+    border-left: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+
+
+/* OPOSSUM  */
+
+#OPOSSUMmenu {
+    position: absolute;
+    z-index: 5;
+    top: 40%;
+    left: 9%;
+
+    width: 180px;
+    
+}
+#MINIOPOSSUMmenu {
+    position: absolute;
+    z-index: 5;
+    top: 40%;
+    left: 7%;
+    margin: 0;
+    padding: 0;
+
+    width: 110px;
+    height: auto;
+    display: none;
+}
+#MINIOPOSSUMmenu2 {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 15%;
+
+    width: 110px;
+    height: auto;
+    display: none;
+}
+.MINIOPOSSUMmenumessage{
+    position: absolute;
+    z-index: 5;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: none;
+}
+
+.OPOSSUMmenumessage{
+    position: absolute;
+    z-index: 5;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width:400px;
+}
+
+#OPOSSUMmenu:active{
+    display: none;
+}
+
+#OPOSSUMmenu:active ~ .OPOSSUMmenumessage {
+    display: none;
+}
+
+#OPOSSUMmenu:active ~ #MINIOPOSSUMmenu,
+#OPOSSUMmenu:active ~ #MINIOPOSSUMmenu2,
+#OPOSSUMmenu:active ~ .MINIOPOSSUMmenumessage  {
+    display: block;
+}
+
+#OPOSSUM-container.hidden #OPOSSUMmenu{
+    display: none;
+}
+#OPOSSUM-container.hidden .MINIOPOSSUMmenumessage{
+    display: none;
+}
+
+/* RAT  */
+
+#RATMENU-container.hidden #RATMENU {
+    display: none;
+}
+#RATMENU-container.hidden .RATMENUmessage{
+    display: none;
+}
+
+#RATMENU{
+    position: absolute;
+    z-index: 5;
+    top: 40%;
+    left: 10%;
+
+    width: 160px;
+}
+.RATMENUmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+/* WASP  */
+
+#WASPMENU-container.hidden #WASPMENU {
+    display: none;
+}
+#WASPMENU-container.hidden .WASPMENUmessage{
+    display: none;
+}
+#WASPMENU{
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    left: 10%;
+
+    width: 120px;
+}
+
+.WASPMENUmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+/* COW  */
+#cow-container.hidden #cowbrownUP{
+    display: none;
+}
+#cow-container.hidden .COWFULLmessage{
+    display: none;
+}
+
+#cowbrownUP{
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    left: 11%;
+    display: block;
+    width: 140px;
+}
+
+#cowDOWN{
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    left: 11%;
+
+    width: 140px;
+    display: none;
+}
+
+.COWFULLmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+#cow-container:hover #cowbrownUP{
+    display: none;}
+    
+#cow-container:hover #cowDOWN{
+    display: block;}
+
+/* MINIOWL  */
+
+#MINIOWLINFO{
+    position: absolute;
+    z-index: 5;
+    top: 46%;
+    left: 10%;
+
+    width: 160px;
+
+}
+
+.MINIOWLINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+#MINIOWL-container.hidden #MINIOWLINFO{
+    display: none;
+}
+#MINIOWL-container.hidden .MINIOWLINFOmessage{
+    display: none;
+}
+
+/* flysquirrel  */
+
+#FlyingSquirrelINFO{
+    position: absolute;
+    z-index: 5;
+    top: 44%;
+    left: 12%;
+
+    width: 100px;
+}
+.FlyingSquirrelINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+#FLYINGSQUIRREL-container.hidden #MINIOWLINFO{
+    display: none;
+}
+#FLYINGSQUIRREL-container.hidden .MINIOWLINFOmessage{
+    display: none;
+}
+
+/* GNOMES  */
+
+#gnomesINFO{
+    position: absolute;
+    z-index: 5;
+    top: 42%;
+    left: 14%;
+
+    width: 70px;
+}
+.gnomesINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 1%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 400px;
+    display: block;
+}
+
+#GNOMES-container.hidden #gnomesINFO{
+    display: none;
+}
+#GNOMES-container.hidden .gnomesINFOmessage{
+    display: none;
+}
+
+/* BOSSES  */
+
+.BossNextButtonLeft{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 35%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-right: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.BossNextButtonLeft:hover {
+    border-right: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+.BossNextButtonRight{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 61%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-left: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.BossNextButtonRight:hover {
+    border-left: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+/* OWLINFO  */
+
+#OWLINFO1{
+    position: absolute;
+    z-index: 5;
+    bottom: 37%;
+    left: 45%;
+
+    width: 110px;
+    height: auto;
+    display: block;
+
+}
+
+#OWLINFO2{
+    position: absolute;
+    z-index: 5;
+    bottom: 37%;
+    left: 45%;
+
+    width: 110px;
+    height: auto;
+    display: none;
+}
+
+.OWLINFO1message{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 35%;
+    color: red;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width:360px;
+    display: block;
+}
+
+#OWLBoss-container:hover #OWLINFO1{
+    display: none;
+}
+#OWLBoss-container:hover #OWLINFO2{
+    display: block;
+}
+
+#OWLBoss-container.hidden #OWLINFO1{
+    display: none;
+}
+#OWLBoss-container.hidden .OWLINFO1message{
+    display: none;
+}
+
+/* UFO  */
+
+#UFOINFO1{
+    position:absolute;
+    z-index: 5;
+    top: 45%;
+    left: 40%;
+
+    width: 250px;
+    height: auto;
+    display: block;
+}
+#UFOINFO2{
+    position:absolute;
+    z-index: 5;
+    top: 45%;
+    left: 40%;
+
+    width: 250px;
+    height: auto;
+    display: none;
+}
+.UFOINFO1message{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 35%;
+    color: red;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 360px;
+    display: block;
+}
+
+#UFOBoss-container:hover #UFOINFO1{
+    display: none;
+}
+#UFOBoss-container:hover #UFOINFO2{
+    display: block;
+}
+#UFOBoss-container.hidden #UFOINFO1{
+    display: none;
+}
+#UFOBoss-container.hidden .UFOINFO1message{
+    display: none;
+}
+
+/* SQUIRREL  */
+
+#SQUIRRELINFO1{
+    position: absolute;
+    z-index: 5;
+    bottom: 37%;
+    left: 45%;
+
+    width: 110px;
+    height: auto;
+}
+#SQUIRRELINFO2{
+    position: absolute;
+    z-index: 5;
+    bottom: 37%;
+    left: 45%;
+
+    width: 110px;
+    height: auto;
+    display: none;
+}
+.SQUIRRELINFO1message{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 35%;
+    color: red;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 360px;
+    display: block;
+}
+
+#SQUIRRELBoss-container:hover #SQUIRRELINFO1{
+    display: none;
+}
+#SQUIRRELBoss-container:hover #SQUIRRELINFO2{
+    display: block;
+}
+#SQUIRRELBoss-container.hidden #SQUIRRELINFO1{
+    display: none;
+}
+#SQUIRRELBoss-container.hidden .SQUIRRELINFO1message{
+    display: none;
+}
+
+/* POWERUPS  */
+.PowerUpNextButtonLeft{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 73%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-right: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.PowerUpNextButtonLeft:hover {
+    border-right: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+.PowerUpNextButtonRight{
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+
+    top: 50%;
+    left: 88%;
+
+    padding: 0px 0px;
+    background: none;
+    color: none;
+    border-top: 15px solid transparent;
+    border-left: 35px solid #8f8f8f;
+    border-bottom: 15px solid transparent;
+    border-radius: 0px;
+    transition:  border-left 0.2s;
+}
+
+.PowerUpNextButtonRight:hover {
+    border-left: 35px solid #555;
+    background: none;
+    box-shadow: none;
+}
+
+#jetpackINFO{
+    position: absolute;
+    z-index: 5;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: block;
+}
+#jetpackINFO2{
+    position: absolute;
+    z-index: 4;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.jetpackINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 67%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 380px;
+    display: block;
+}
+
+#JETPACK-container:hover #jetpackINFO{
+    display: none;
+}
+#JETPACK-container:hover #jetpackINFO2{
+    display: block;
+}
+#JETPACK-container.hidden #jetpackINFO{
+    display: none;
+}
+#JETPACK-container.hidden .jetpackINFOmessage{
+    display: none;
+}
+
+
+#heartINFO{
+    position: absolute;
+    z-index: 5;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: block;
+}
+#heartINFO2{
+    position: absolute;
+    z-index: 4;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.heartINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 67%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+    text-align: center;
+
+    width: 380px;
+    display: block;
+}
+
+#HEART-container:hover #heartINFO{
+    display: none;
+}
+#HEART-container:hover #heartINFO2{
+    display: block;
+}
+#HEART-container.hidden #heartINFO{
+    display: none;
+}
+#HEART-container.hidden .heartINFOmessage{
+    display: none;
+}
+
+#raygunINFO{
+    position: absolute;
+    z-index: 5;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: block;
+}
+#raygunINFO2{
+    position: absolute;
+    z-index: 4;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.raygunINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 67%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 380px;
+    display: block;
+}
+
+#RAYGUN-container:hover #raygunINFO{
+    display: none;
+}
+#RAYGUN-container:hover #raygunINFO2{
+    display: block;
+}
+#RAYGUN-container.hidden #raygunINFO{
+    display: none;
+}
+#RAYGUN-container.hidden .raygunINFOmessage{
+    display: none;
+}
+
+#bombINFO{
+    position: absolute;
+    z-index: 5;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: block;
+}
+#bombINFO2{
+    position: absolute;
+    z-index: 4;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.bombINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 67%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 380px;
+    display: block;
+}
+
+#BOMB-container:hover #bombINFO{
+    display: none;
+}
+#BOMB-container:hover #bombINFO2{
+    display: block;
+}
+#BOMB-container.hidden #bombINFO{
+    display: none;
+}
+#BOMB-container.hidden .bombINFOmessage{
+    display: none;
+}
+
+#platformINFO{
+    position: absolute;
+    z-index: 4;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: block;
+}
+#platformINFO2{
+    position: absolute;
+    z-index: 5;
+    bottom: 40%;
+    left: 78%;
+
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.platformINFOmessage{
+    position: absolute;
+    z-index: 6;
+    top: 65%;
+    left: 67%;
+    color: aqua;
+    font-size: 16px;
+    font-family: "Jaro", sans-serif;
+
+    width: 380px;
+    display: block;
+}
+
+#PLATFORM-container:hover #platformINFO2{
+    display: block;
+}
+#PLATFORM-container.hidden #platformINFO{
+    display: none;
+}
+#PLATFORM-container.hidden .platformINFOmessage{
+    display: none;
+}
+
+
+#CreditsMessage{
+    position: absolute;
+    z-index: 2;
+    top: 61%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: pink;
+    font-size: 18px;
+    padding: 10px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(0, 0, 0, 0.664);
+
+    width: 700px;
+    height: auto;
+
+}
+
+#LoseMessage{
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: red;
+    font-size: 40px;
+    text-shadow: #000;
+    padding: 10px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(0, 0, 0, 0.664);
+
+    width: 800px;
+    height: auto;
+
+}
+
+#WinMessage{
+    position: absolute;
+    z-index: 2;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 30px;
+    text-shadow: #000;
+    padding: 10px;
+    font-family: "Jaro", sans-serif;
+    background-color: rgba(0, 0, 0, 0.664);
+
+    width: 700px;
+    height: auto;
+
+}
+
+.hidden {
+    display: none;
+    z-index: 5;
+}
+
+
+

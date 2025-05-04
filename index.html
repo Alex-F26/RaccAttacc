@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=0.1">
+
+        <title>JavaScript Game</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
+      
+        <link rel="stylesheet" href="style.css">
+
+       
+    </head>
+
+    <link rel="icon" href="Assets/SPRITES/favicon.ico" type="image/x-icon">
+
+
+
+        <body>
+
+
+            
+
+
+
+            <div class="custom-cursor site-wide">
+                <div class="pointer"></div>
+            </div>
+
+
+            <!-- <img id = "RaccCursor" class = "RaccCursor" src = "Assets/SPRITES/RaccoonFavicon.png"> -->
+
+
+            <canvas id="canvas1" class = "hidden"></canvas>
+            <canvas id="canvas2" ></canvas>
+            
+
+            <!--MENU-->
+            <div id = "mainMenu" class = "menu">
+                
+                <h1> RACC ATTACC </h1>
+                
+
+                <button id="StartButton" class = "StartButton">
+                    Start Game
+                  </button>
+                  
+
+                  <button id="SettingsButton" class = "SettingsButton">
+                    Settings & Music
+                  </button>
+
+                  <button id="ResumeButton" class = "hidden">
+                    Resume Game
+                  </button>
+
+
+                <button id = "HTPButton" class = "HTPButton">
+                    How To Play
+            </button>
+            <img id="RaccoonMainMenu" src="Assets/SPRITES/RaccoonFavicon.png" class="main-menu-img raccoon">
+            <img id="AlienMainMenu" src="Assets/SPRITES/AlienMainMenu.png" class="main-menu-img alien">
+            <img id="cowMainMenu" src="Assets/SPRITES/cowONE.png" class="main-menu-img cow">
+            <img id="cowBrownMainMenu" src="Assets/SPRITES/cowbrownONE.png" class="main-menu-img cow-brown">
+
+
+                <button id = "INFOButton" class = "INFOButton"> 
+                    Lore & Critters 
+            </button>
+
+            <button id = "RestartButton" class = "hidden"> 
+                Restart
+            </button>
+            <button id = "QuitButton" class = "hidden"> 
+                Quit
+            </button>
+
+            
+            </div>
+
+<!-- HOW TO PLAY -->
+
+            <div id = "HTPscreen" class = "HTP hidden"> 
+                <!-- Space between   HTP    and    hidden, gives it two classes (.HTP and .hidden in CSS) -->
+
+                <button id = "backButtonHTP" class="backButtonHTP" >Back to Main Menu</button>
+
+                <div class="ControlsMessage">Controls</div>
+                <div class = "TipsMessage">Tips</div>
+            
+                <img id = "ARROWS" src="Assets/SPRITES/ARROWS.png"  class="ARROWS" >
+                <img id = "SPACEBAR" src="Assets/SPRITES/SPACEBAR.png"  class="SPACEBAR" >
+                <img id = "TAB" src="Assets/SPRITES/TAB.png"  class="TAB">
+                <img id = "RACCGROUNDHTP" src="Assets/SPRITES/RaccGround HTP.png"  class="RACCGROUNDHTP">
+            <div class="jet-container">
+                <img id = "RACCFLYHTP" src="Assets/SPRITES/RaccFly HTP.png"  class="hidden">
+                <img id = "JETPACKHTP" src="Assets/SPRITES/Jetpack HTP.png"  class="JETPACKHTP">
+            </div>
+            <div class="JETPACKHTPmessage">
+                <p>There are multiple power ups to help ya out!</p>
+                <br>
+                <p>Hover your cursor over the Jetpack Powerup</p>
+            </div>
+
+            <button id = "MoreInfo" class="MoreInfo" >More Details in the "Lore & Critters" tab </button>
+
+                <img id = "PLATFORMHTP" src="Assets/SPRITES/trashcanlid2.png"  class="PLATFORMHTP">
+                <img id = "GNOMESHTP" src="Assets/SPRITES/gnomes2.png"  class="GNOMESHTP">
+                <div class="GNOMESHTPmessage">
+                    <p>GNOMES!!!</p>
+                    <p>Breaking them inflicts damage!</p>
+                    <br>
+                    <p>Use platforms to gain an advantage or escape from enemies!</p>
+                </div>
+
+                <img id = "WASPHTP" src="Assets/SPRITES/WASP HTP.png"  class="WASPHTP">
+                <div class="owl-container">
+                    <img id="OWLHTP" src="Assets/SPRITES/OWL HTP.png" class="OWLHTP">
+                    <img id="MINIOWLHTP" src="Assets/SPRITES/MINIOWLHTP.png" class="hidden">
+                  </div>
+                  <div class="OWLHTPmessage">
+                    
+                    <p>Enemies vary in damage and speed</p>
+                    <br>
+                    <p>Bosses have their own minions to help them!</p>
+                    <br>
+                    <p>There are 3 total bosses to defeat</p>
+                </div>
+               
+                <div class="WASDmessage">
+                    <p>Use Arrow Keys </p>
+                    <p>To move Left / Right 
+                    <br> ( Fly Up / Jump) / (Fly Down / Drop) </p>
+                    
+                </div>
+                
+                <div class="SPACEBARmessage">
+                    <p>SPACEBAR to shoot</p>
+                    <p>(Ammo recharges continuously)</p>
+                </div>
+
+                <div class="TABmessage">
+                    <p>Press TAB to pause game</p>
+                </div>
+            </div>
+
+
+<!-- SETTINGS -->
+
+            <div id = "SettingsScreen" class = "Settings hidden">
+
+                <select id="musicSelect">
+                    <option value="rockMusic.mp3">Rock Music</option>
+                    <option value="audio 60.wav">Chill Music</option>
+                    <option value="mute">Mute</option>
+                </select>
+
+                <div class = "MusicMessage"> 
+                    <p>PICK YOUR POISON</p>
+                    <p>Curated by yours truly on a regrettably sleep-deprived night</p>
+                    <br>
+                    <p>I slapped together random tunes, riffs, and beats with a LOVELY ignorance for musical theory </p>
+                    <p>AND a splash of what music connoisseurs like myself call "tone-deaf...ness"</p>
+                </div>
+                
+                <div class = "difficultyMessage"> Difficulty </div>
+                <button id = "backButtonSettings"  class="backButtonSettings">Back to Main Menu</button>
+                <div class="slidecontainer">
+                    <div class="sliderMessage">Music & Volume</div>
+                    <input type="range" min="1" max="100" value="35" class="slider" id="myRange">
+                  </div>
+
+                  
+
+
+                <div class="normalDifficultyWrapper">  
+                <button id = "difficultyNormalButtonACTIVE"  class="hidden">Normal</button>
+                  <button id = "difficultyNormalButton"  class="difficultyNormalButton">
+                    Normal
+                    <div id="normalHiddenMessage" class="hidden">
+                       <p> How the gaming gods intended for </p>
+                       <p>this janky game to be played</p>
+                    </div>
+                  </button>
+                </div>
+                  
+                <div class="hardDifficultyWrapper">
+                <button id = "difficultyHardButtonACTIVE"  class="hidden"> Hard</button>
+                  <button id = "difficultyHardButton"  class="difficultyHardButton">
+                    Hard
+                    <div id="HardHiddenMessage" class = "hidden">
+                        <p>Enemies spawn more often</p>
+                        <p>Ammo recharge is slowed down</p>
+                        <p>Max health is reduced</p>
+                        <p>You spawn with more Ammo</p>
+                        <p>You have a higher Ammo capacity</p>                       
+                    </div>
+                  </button>
+                </div>
+            </div>
+
+<!-- INFO -->
+
+
+            <div id = "INFOScreen"  class = "INFO hidden">
+                
+                <button id = "backButtonINFO"  class="backButtonINFO">Back</button>
+                
+                <button id = "EnemyNextButtonLeft"  class="EnemyNextButtonLeft"></button>
+                <button id = "EnemyNextButtonRight"  class="EnemyNextButtonRight"></button>
+
+                <button id = "BossNextButtonLeft"  class="BossNextButtonLeft"></button>
+                <button id = "BossNextButtonRight"  class="BossNextButtonRight"></button>
+
+                <button id = "PowerUpNextButtonLeft"  class="PowerUpNextButtonLeft"></button>
+                <button id = "PowerUpNextButtonRight"  class="PowerUpNextButtonRight"></button>
+                    
+                
+
+                <div class="Lore">Lore</div>
+                <div class="LoreMessage">
+                        <p>The city of Procyon has become overrun by aliens!</p>
+                        <p>They've used a mysterious alien tech to take control the critters of the city and are using them to wreak havoc!</p>
+                        <p>Not the wasps though, they just cease any opportunity to be vexxing and evil</p>
+                        <p>ANYWAY, the aliens are disrupting your steady flow of trash and are disturbing your peace.</p>
+                        <p>Tighten yer boot straps and fight fer yer yummy trash!!!</p>
+
+                        
+                        
+                </div>
+
+                <div class="Credits">Credits</div>
+                    <div class="CreditsMessage">
+                        <p>TO MY DEAREST FRIENDS AND FAMLY</p>
+                        <p>Thank you for lending your vocal chords</p>
+                        <br>
+                        <p>
+
+                        </p> <span style="color: red;">Melodacious - </span>
+                            <span style="color: orange;">voiced </span>
+                            <span style="color: yellow;">the</span>
+                            <span style="color: green;">RATS</span>
+                            <span style="color: rgb(62, 62, 255);">(Sparked</span>
+                            <span style="color: rgb(138, 75, 184);">the  </span>
+                            <span style="color: violet;">beginning</span>
+                            <span style="color: red;">of the</span>
+                            <span style="color: orange;">choir)</span>
+                        </p>
+
+                        <p>
+                            <span  style="color: pink;">Andrea</span>
+                            <span  style="color: forestgreen;">(Head Chef) </span>
+                            <span  style="color: rgb(184, 21, 184);">- voiced the COWS</span>
+                            <span  style="color: orange;"> (Totally cooked with the MOO and MRR variation)</span>
+                        </p>
+
+                        <p>
+                            <span style="color: red;">(Ax2)+RON</span>
+                            <span style="color: rgb(62, 62, 255);"> - voiced the WASPS and the O.W.L</span>
+                            <span style="color: red;">(Working Overtime)</span>
+                        </p>
+
+                        <p>
+                            <span style="color:red;">Johvanny</span>
+                            <span style="color:silver;"> - voiced the FERAL CHOMPERS</span>
+                            <span style="color:red;">(Provided the offspring for the following)</span>
+                        </p>
+                        <p>  
+                            <span style="color: pink;">Samantha</span>
+                            <span style="color: skyblue;"> - voiced the MINI CHOMPERS</span>
+                            <span style="color: pink;">(VERY CUTE)</span>
+
+                        </p>
+                    </div>
+
+                <div class="Bosses">Bosses</div>
+                <div class="Enemies">Enemies</div>
+                <div class="PowerUps">PowerUps</div>
+
+                <!-- ENEMIES SETTINGS  -->
+                <div id = "OPOSSUM-container" class="hidden">
+                    <img id = "OPOSSUMmenu" src="Assets/SPRITES/OPOSSUMoneINFO.png">
+                    <div class="OPOSSUMmenumessage">
+                        <p>FERAL CHOMPER</p>
+                        <hr>
+                        <br>
+                        <p>Definitely has rabies</p>
+                        <br>
+                        <p>Slow but TANKY and causes hefty damage</p>
+                        <br>
+                        <p>Take em out and they spawn a horde of MINI CHOMPERS!</p>
+                        <br>
+                        <p>(Click and hold on the opossum </p>
+                        <p>to learn about its blood-thirsty kids)</p>
+                    </div>
+
+                    <img id = "MINIOPOSSUMmenu" src="Assets/SPRITES/MINIopINFO1.png" >
+                    <img id = "MINIOPOSSUMmenu2" src="Assets/SPRITES/MINIopINFO2.png" >
+                    <div class="MINIOPOSSUMmenumessage">
+                        <p>Mini Chompers</p>
+                        <hr>
+                        <br>
+                        <p>The little ones are speedy and RAVENOUS</p>
+                        <br>
+                        <p>Get out of their way or they WILL BITE YOU!</p>
+                        <br>
+                        <p>You cannot take em out, they are too fast for projectiles and bombs (I already tried)</p>
+                        <br>
+                        <p>(Only 5 are supposed to spawn, but the code is volatile, so uh, you may face a horde of like 20 of em, good luck!)</p>
+                    </div>
+                </div>
+ 
+                <div id="RATMENU-container" class="hidden">
+                    <img id = "RATMENU" src="Assets/SPRITES/RATINFO.png" >
+                    <div class="RATMENUmessage">
+                        <p>RATS RATS RATS</p>
+                        <hr>
+                        <br>
+                        <p>With their their spiky armor AND mighty spears</p>
+                        <p>(which may look like shovels),</p>
+                        <p>these guys are ready to bring the Black Plague back into style</p>
+                        <br>
+                        <p>Retro-chic trendsetters for sure</p>
+                        <br>
+                        <p>oh, their stats? uhm, medium tankiness and speed?</p>
+                    </div>
+                </div>
+
+            <div id="WASPMENU-container" class="hidden">
+                <img id = "WASPMENU" src="Assets/SPRITES/WASP HTP.png" >
+                <div class="WASPMENUmessage">
+                    <p>Lil flying spiteful %$#@%!?</p>
+                    <hr>
+                        <br>
+                        <p>I HATE THEM</p>
+                        <p>THEY STUNG MY FACE WHEN I WAS JUST A WEE LAD</p>
+                        <br>
+                        <p>I once saw one trying to sting a rock, to no avail of course, but like damn</p>
+                        <br>
+                        <p>Also, theyre very fast but don't do a lot of damage</p>
+
+                </div>
+            </div>
+
+                <div id="cow-container" class="hidden">
+                    <img id = "cowbrownUP" src="Assets/SPRITES/cowbrownUP.png" class="hidden">
+                    <img id = "cowDOWN" src="Assets/SPRITES/cowDOWN.png" class="hidden">
+                    <div class="COWFULLmessage">
+                        <p>COWS</p>
+                        <hr>
+                        <br>
+                        <p>where are they coming from???</p>
+                        <br>
+                        <p>moooo</p>
+                    </div>
+                </div>  
+
+            <div id="MINIOWL-container" class="hidden">
+                <img id = "MINIOWLINFO" src="Assets/SPRITES/MINIOWLHTP.png" >
+                <div class="MINIOWLINFOmessage">
+                    <p>O.W.L Minions</p>
+                    <hr>
+                    <br>
+                    <p>Small, speedy, but HUMONGOUS in quantity</p>
+                    <p>They live and die to protect their master</p>
+                    <br>
+                    <p>Low health, low damage</p>
+                </div>
+            </div>
+
+            <div id="FLYINGSQUIRREL-container" class="hidden">
+                <img id = "FlyingSquirrelINFO" src="Assets/SPRITES/FlyingSquirrelINFO.png" >
+                <div class="FlyingSquirrelINFOmessage">
+                    <p>Avian Squirrels??</p>
+                    <hr>
+                    <br>
+                    <p>That's right, and they're out to get you</p>
+                    <br>
+                    <p>Sacrificial rodents for their S.Q.U.I.R.R.E.L master</p>
+                    <br>
+                    <p>Low health, low damage</p>
+                </div>
+            </div>
+
+            <div id = "GNOMES-container" class="hidden">
+                <img id = "gnomesINFO" src="Assets/SPRITES/gnomes3.png" >
+                <div class="gnomesINFOmessage">
+                    <p>GNOMES!!!</p>
+                    <hr>
+                    <br>
+                    <p>Not inherently evil, but VERY territorial</p>
+                    <br>
+                    <p>You can't shoot them</p>
+                    <br>
+                    <p>Step on em and they will damage you</p>
+                    <br>
+                    <p>uhhh, my mom thinks they are evil, so, yeah watch out</p>
+                </div>
+            </div>
+
+            <!-- BOSS SETTINGS  -->
+
+                <div id = "OWLBoss-container" class="hidden">
+                    <img id = "OWLINFO1" src="Assets/SPRITES/OWLoneINFO.png" >
+                    <img id = "OWLINFO2" src="Assets/SPRITES/OWLtwoINFO.png" >
+                    <div class="OWLINFO1message">
+                        <p>O.W.L</p>
+                        <hr>
+                        <br>
+                        <p>Three headed monster that likes to show off how it doesn't get neck pains like pathetic mortal beings do</p>
+                        <br>
+                        <p>As you inflict damage, they will lose their heads</p>
+                        <br>
+                        <p>Hover your cursor over the O.W.L to see!</p>
+                    </div>
+                </div>
+
+                <div id = "UFOBoss-container" class="hidden">
+                    <img id = "UFOINFO1" src="Assets/SPRITES/UFOoneINFO.png" >
+                    <img id = "UFOINFO2" src="Assets/SPRITES/UFOtwoINFO.png" >
+                    <div class="UFOINFO1message">
+                        <p>U.F.O</p>
+                        <hr>
+                        <br>
+                        <p>Unknown Funny Orphans</p>
+                        
+                        <p>I think that's what that stands for</p>
+                        <br>
+                        <p>These green creatures will launch projectiles at you</p>
+                        <br>
+                        <p>Ignore what they say, they're just jealous of your fur</p>
+                    </div>
+                </div>
+
+                <div id = "SQUIRRELBoss-container" class="hidden">
+                    <img id = "SQUIRRELINFO1" src="Assets/SPRITES/SQUIRRELone.png" >
+                    <img id = "SQUIRRELINFO2" src="Assets/SPRITES/SQUIRRELtwo.png" >
+                    <div class="SQUIRRELINFO1message">
+                        <p>S.Q.U.I.R.R.E.L</p>
+                        <hr>
+                        <br>
+                        <p>Took me a while to figure out that this one is actually NOT a real squirrel</p>    
+                        <br>
+                        <p>Yeah, I know, hard to believe. It's controlled by Aliens!</p>
+                        <br>
+                        <p>Shoots Acorn projectiles that follow your movement... kinda</p>
+                        <br>
+                        <p>Tastes like metal</p>
+                    </div>
+                </div>
+
+                
+
+                <!-- POWERUPS SETTINGS  -->
+                 <div id = "JETPACK-container" class="hidden">
+                    <img id = "jetpackINFO" src="Assets/SPRITES/JETPACKone.png" >
+                    <img id = "jetpackINFO2" src="Assets/SPRITES/Jetpack HTP.png" >
+                    <div class="jetpackINFOmessage">
+                        <p>Jetpack</p>
+                        <hr>
+                        <br>
+                        <p>To infinity and beyond! </p>    
+                        <p>or whatever that toy said</p>
+                        <br>
+                        <p>Removes the pesky restriction of gravity</p>
+                        <br>
+                        <p>Fly high buddy... fly high</p>
+                    </div>
+                 </div>
+
+                 <div id = "HEART-container" class="hidden">
+                    <img id = "heartINFO" src="Assets/SPRITES/HEARTone.png" >
+                    <img id = "heartINFO2" src="Assets/SPRITES/HEARTtwo.png" >
+                    <div class="heartINFOmessage">
+                        <p>Regeneration</p>
+                        <hr>
+                        <br>
+                        <p>Ventricles and whatnot</p>    
+                        <br>
+                        <p>Lasts 10 seconds and regenerates 1 health per second</p>    
+                        <br>
+                        <p>Yummy blood pumping organ</p>
+                    </div>
+                 </div>
+                 
+                 <div id = "RAYGUN-container" class="hidden">
+                    <img id = "raygunINFO" src="Assets/SPRITES/RAYGUNone.png" >
+                    <img id = "raygunINFO2" src="Assets/SPRITES/RAYGUNtwo.png" >
+                    <div class="raygunINFOmessage">
+                        <p>Raygun</p>
+                        <hr>
+                        <br>
+                        <p>A super pew pew bang bang</p>    
+                        <br>
+                        <p>Shoots 3 laser shots in 3 different directions</p>
+                        <p>for the price of 1</p>
+                        <br>
+                        <p>Not Australian, if you know, you know</p>
+                    </div>
+                 </div>
+
+                 <div id = "BOMB-container" class="hidden">
+                    <img id = "bombINFO" src="Assets/SPRITES/BombSupportONE.png" >
+                    <img id = "bombINFO2" src="Assets/SPRITES/BombSupportTWO.png" >
+                    <div class="bombINFOmessage">
+                        <p>Air Support</p>
+                        <hr>
+                        <br>
+                        <p>No, they don't hurt you... maybe</p>    
+                        <br>
+                        <p>They one-shot everything except Bosses, but they do inflict a small amount of damage onto them</p>    
+                        <br>
+                        <p>They cannot hurt Mini Chompers, but if they take out the large opossum, mini ones won't spawn</p>
+                        </div>
+                 </div>
+
+                 <div id = "PLATFORM-container" class="hidden">
+                    <img id = "platformINFO" src="Assets/SPRITES/trashcanlid2.png" >
+                    <img id = "platformINFO2" src="Assets/SPRITES/RaccoonFavicon.png" >
+                    <div class="platformINFOmessage">
+                        <p>Platforms</p>
+                        <hr>
+                        <br>
+                        <p>These trash can lids can provide a positional advantage</p>    
+                        <br>
+                        <p>Due to coding errors, they are slightly unreliable, so uh, yeah, you might just slip through one if the game gods so choose to pull the rug from under your paws</p>    
+                        <br>
+                        <p>You've been warned</p>          
+                      </div>
+                    </div>
+                 </div>
+
+               
+
+
+                 <div id="CreditsMessage" class="hidden"> 
+                    <p>TO MY DEAREST FRIENDS AND FAMLY</p>
+                    <p>Thank you for lending your vocal chords</p>
+                    <br>
+                    <p>
+
+                    </p> <span style="color: red;">Melodacious - </span>
+                        <span style="color: orange;">voiced </span>
+                        <span style="color: yellow;">the</span>
+                        <span style="color: green;">RATS</span>
+                        <span style="color: rgb(62, 62, 255);">(Sparked</span>
+                        <span style="color: rgb(138, 75, 184);">the  </span>
+                        <span style="color: violet;">beginning</span>
+                        <span style="color: red;">of the</span>
+                        <span style="color: orange;">choir)</span>
+                    </p>
+
+                    <p>
+                        <span  style="color: pink;">Andrea</span>
+                        <span  style="color: forestgreen;">(Head Chef) </span>
+                        <span  style="color: rgb(184, 21, 184);">- voiced the COWS</span>
+                        <span  style="color: orange;"> (Totally cooked with the MOO and MRR variation)</span>
+                    </p>
+
+                    <p>
+                        <span style="color: red;">(Ax2)+RON</span>
+                        <span style="color: rgb(62, 62, 255);"> - voiced the WASPS and the O.W.L</span>
+                        <span style="color: red;">(Working Overtime)</span>
+                    </p>
+
+                    <p>
+                        <span style="color:red;">Johvanny</span>
+                        <span style="color:silver;"> - voiced the FERAL CHOMPERS</span>
+                        <span style="color:red;">(Provided the offspring for the following)</span>
+                    </p>
+                    <p>  
+                        <span style="color: pink;">Samantha</span>
+                        <span style="color: skyblue;"> - voiced the MINI CHOMPERS</span>
+                        <span style="color: pink;">(VERY CUTE)</span>
+
+                    </p>
+                </div>
+
+                <div id="LoseMessage" class="hidden"> 
+                    <p>Raccy does not have enough health to keep going!</p>
+                    <br>
+                    <p>Don't give up!</p>
+                    <br>
+                    <p>Try again!</p>
+                </div>
+
+                <div id="WinMessage" class="hidden"> 
+                    <p>
+                        <span style="color: yellow;">Victory!</span>
+                    </p>
+                    <p>
+                        <span style="color: yellow; ">Procyon City has been saved!</span>
+                    </p>
+                    <p>
+                        <span style="color: silver; font-size: 20px;">uh... maybe not, BUT you can forage for your trash in peace now</span>
+                    </p>
+
+                    
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- characters-->
+            <img id = "raccoon1" src="Assets/SPRITES/raccoonCLOSED sprite.png">
+            <img id = "raccoon2" src="Assets/SPRITES/raccoonOPEN sprite.png">
+
+            <img id = "raccoonJet1" src="Assets/SPRITES/RaccGoggleJetCLOSED sprite.png">
+            <img id = "raccoonJet2" src="Assets/SPRITES/RaccJetGoggleOPEN sprite.png">
+
+            <img id = "flyingRaygun" src="Assets/SPRITES/raygunRacc(Flying) sprite.png">
+            <img id = "groundedRaygun" src="Assets/SPRITES/raygunRacc(Grounded) sprite.png">
+
+
+            <img id = "WASP" src="Assets/SPRITES/WASP sprite.png">
+            <img id = "BEE" src="Assets/SPRITES/BEE sprite.png">
+            <img id = "RAT" src="Assets/SPRITES/RAT sprite.png">
+            <img id = "OPOSSUM" src="Assets/SPRITES/Opossum sprite.png">
+            <img id = "miniOPOSSUM" src="Assets/SPRITES/miniOpossum sprite.png">
+
+            
+            <img id ="OWL" src = "Assets/SPRITES/owl sprite.png">
+            <img id ="OWL60" src = "Assets/SPRITES/owlBossDamage60.png">
+            <img id ="OWL90" src = "Assets/SPRITES/owlBossDamage90.png"> 
+
+            <img id = "miniOWL" src="Assets/SPRITES/miniOWL sprite.png">
+
+            <img id ="UFO" src = "Assets/SPRITES/UFO sprite.png">
+            <img id ="UFO60" src = "Assets/SPRITES/UFOALIENDAMAGE 60.png">
+            <img id ="UFO90" src = "Assets/SPRITES/UFOALIENDAMAGE 90.png">
+
+            <img id ="miniCOW" src = "Assets/SPRITES/miniCOW sprite.png">
+            <img id ="miniCowBrown" src = "Assets/SPRITES/miniCowBrown sprite.png">
+            
+            <img id ="SQUIRREL" src = "Assets/SPRITES/SquirrelRobot sprite.png">
+            <img id ="SQUIRREL60" src = "Assets/SPRITES/SquirrelRobot sprite 60.png">
+            <img id ="SQUIRREL90" src = "Assets/SPRITES/SquirrelRobot sprite 90.png">
+
+            <img id ="ACORN" src = "Assets/SPRITES/acorn sprite.png">
+            <img id ="miniSQUIRREL" src = "Assets/SPRITES/FlyingSquirrel sprite.png">
+            
+
+            <!-- <img id = "lucky" src="Assets/SPRITES/trashcanlid.png">-->
+
+            <!--Power Ups-->
+            <img id = "Bomb" src = "Assets/SPRITES/BOMB sprite 60x60.png">
+            <img id = "JetPack" src="Assets/SPRITES/JETPACK sprite 60x60.png">
+            <img id = "Heart" src = "Assets/SPRITES/Heart+1 40x40.png">
+            <img id = "Raygun" src = "Assets/SPRITES/RAYGUN sprite 60x60.png">
+
+            <!--Power Up Effects-->
+            <img id = "HealthRing" src = "Assets/SPRITES/HealthEffect sprite.png">
+            <img id = "AirSupport" src = "Assets/SPRITES/FieryBomb sprite.png">
+            
+            <!-- props-->
+            <img id = "projectile" src="Assets/SPRITES/trashprojectilesmall (Custom).png">
+            <img id = "soda" src="Assets/SPRITES/Soda sprite.png">
+            <img id = "bottle" src="Assets/SPRITES/Bottle sprite.png">
+            <img id = "apple" src="Assets/SPRITES/Apple sprite.png">
+            <img id = "frog" src="Assets/SPRITES/frog sprite.png">
+
+            <img id = "laserShot" src="Assets/SPRITES/laserShot sprite.png">
+
+            <!--particles-->
+            <img id = "Alien" src="Assets/SPRITES/Alien sprite.png">
+            <img id = "Feather" src="Assets/SPRITES/Feather sprite.png">
+            <img id = "AcornParticle" src="Assets/SPRITES/acorn sprite.png">           
+            <img id = "Spark" src="Assets/SPRITES/Spark sprite.png">
+            <img id = "Screw" src="Assets/SPRITES/screw sprite.png">
+
+            <img id = "DamageFly" src="Assets/SPRITES/damageFLYING.png">
+            <img id = "DamageGro" src="Assets/SPRITES/damageGROUNDED.png">
+
+
+            <!--Explosions/DeathFX-->
+            <img id = "smokeExplosion" src="Assets/SPRITES/smokeExplosion.png">
+            <img id = "fireExplosion" src="Assets/SPRITES/fireExplosion.png">
+            <img id = "featherExplosion" src="Assets/SPRITES/FeatherExplosion sprite.png">
+            <img id = "acornExplosion" src="Assets/SPRITES/AcornExplosion sprite.png">
+
+            <img id = "ProjectileExplosion" src="Assets/SPRITES/ProjectileExplosion sprite.png">
+            <img id = "GnomeExplosion" src="Assets/SPRITES/GnomeExplosion sprite.png">
+
+            <!-- environment-->
+             <img id = "layer1" src="Assets/SPRITES/layer1.png">
+             <img id = "layer2" src="Assets/SPRITES/layer2.png">
+             <img id = "layer3" src="Assets/SPRITES/layer3.png">
+             <img id = "layer35" src="Assets/SPRITES/layer35.png">
+             <img id = "layer36" src="Assets/SPRITES/layer36.png">
+             <img id = "layer4" src="Assets/SPRITES/layer4.png">
+
+            <!--platforms-->
+             <img id = "plat1" src="Assets/SPRITES/trashcanlid.png">
+             <img id = "plat2" src="Assets/SPRITES/trashcanlid2.png">
+             <img id = "plat3" src="Assets/SPRITES/trashcanlid3.png">
+
+             <!--obstacles-->
+             <img id = "gnomes1" src="Assets/SPRITES/gnomes1.png">
+             <img id = "gnomes2" src="Assets/SPRITES/gnomes2.png">
+             <img id = "gnomes3" src="Assets/SPRITES/gnomes3.png">
+
+             <!--AUDIO-->
+             <audio id="airSupportHit" src="Assets/AUDIO/explosion.wav" preload="auto"></audio>
+             <audio id="laserShotSound1" src="Assets/AUDIO/laser-45816.mp3" preload="auto"></audio>
+             <audio id="powerUpSound" src="Assets/AUDIO/powerUp.wav" preload="auto"></audio>
+             <audio id="JETPACKSOUND" src="Assets/AUDIO/JETPACKSOUND.wav" preload="auto"></audio>
+
+
+             <audio id="RATsound" src="Assets/AUDIO/New Project - MelSqueak.mp3.wav" preload="auto"></audio>
+             <audio id="RATsound2" src="Assets/AUDIO/SQUEAK2.wav" preload="auto"></audio>
+             <audio id="RATsqueak" src="Assets/AUDIO/mouse-squeak-261126.mp3" preload="auto"></audio>
+             
+             <audio id="BUZZ" src="Assets/AUDIO/AaronBuzz.wav" preload="auto"></audio>
+             <audio id="GROWL" src="Assets/AUDIO/BigGrowl.wav" preload="auto"></audio>
+             <audio id="miniGROWL" src="Assets/AUDIO/babyGrowl.wav" preload="auto"></audio>
+             <audio id="miniGROWL2" src="Assets/AUDIO/babyGrowl2.wav" preload="auto"></audio>
+
+             <audio id="MRR" src="Assets/AUDIO/MRR.wav" preload="auto"></audio>
+             <audio id="MOO" src="Assets/AUDIO/Moo.wav" preload="auto"></audio>
+             
+
+             <audio id="WHO" src="Assets/AUDIO/AaronOwl.wav" preload="auto"></audio>
+             <audio id="WHOWHO" src="Assets/AUDIO/owl-hooting-223549.mp3" preload="auto"></audio>
+             <audio id="FeatherPoof" src="Assets/AUDIO/ffeather explosion.mp3" preload="auto"></audio>
+
+             <audio id="ALIENVOICE" src="Assets/AUDIO/ALIENVOICE.mp3" preload="auto"></audio>
+             
+             <audio id="UFOSOUND" src="Assets/AUDIO/UFO1.mp3" preload="auto"></audio>
+             <audio id="ALIENSCREAM" src="Assets/AUDIO/ALIENSCREAM.mp3" preload="auto"></audio>
+             <audio id="BOOM" src="Assets/AUDIO/BOOM.wav" preload="auto"></audio>
+
+             <audio id="MINIALIENVOICE" src="Assets/AUDIO/MINIALIENVOICE.wav" preload="auto"></audio>
+             <audio id="METALHIT" src="Assets/AUDIO/metal-impact-247482.mp3" preload="auto"></audio>
+             <audio id="SQUIRRELSOUND" src="Assets/AUDIO/squirrel-chirping-28364.mp3" preload="auto"></audio>
+             <audio id="SLINGSHOT" src="Assets/AUDIO/SLINGSHOT.wav" preload="auto"></audio>
+             <audio id="SQUIRRELDEATH" src="Assets/AUDIO/SQUIRRELDEATH.mp3" preload="auto"></audio>
+
+
+             <audio id="GNOMEBREAK" src="Assets/AUDIO/GNOMEBREAK.mp3" preload="auto"></audio>
+
+
+             <audio id="PLAYERHURT" src="Assets/AUDIO/hitHurt (1).wav" preload="auto"></audio>
+             <audio id="HIT" src="Assets/AUDIO/hitHurt.wav" preload="auto"></audio>
+
+             <audio id="Music" src="Assets/AUDIO/rockMusic.mp3" preload="auto" loop ></audio>
+             <audio id="MenuMusic" src="Assets/AUDIO/audio 60.wav" preload="auto" loop></audio>
+            
+
+
+
+
+
+
+
+             <!--Pause Button-->
+             
+             <button id="PauseButton" class = "hidden">Pause Menu (Tab)</button>
+
+             
+
+
+
+             
+
+            <script type="module" src="script.js"></script>
+            
+            <!--<script type="module" src="Player.js"></script>>-->
+
+        </body>
+
+</html>
