@@ -1584,8 +1584,8 @@ class Obstacle{
 
 
             if (this.isKnockedBack) {
-                this.x += this.knockbackX;
-                this.y += this.knockbackY;
+                this.x += this.knockbackX * (deltaTime / 1000);
+                this.y += this.knockbackY * (deltaTime / 1000);
         
                 // Slow down knockback (friction effect)
                 this.knockbackX *= .70 ** (deltaTime/16);
@@ -1613,7 +1613,7 @@ class Obstacle{
             this.x += this.speedX;
 
     //vertical movement
-            this.vy += this.gravity ;
+            this.vy += this.gravity * (deltaTime / 1000);;
             this.y += this.vy  * this.game.speed * (deltaTime/1000);
 
     //grounded logic
@@ -3141,7 +3141,7 @@ class miniCOWenemy extends Enemy {
             //Increase speed for a potential powerup option
             this.speed = 1 
             this.debug = false;
-            this.lives = 100;
+            this.lives = 1000;
             this.MaxLives = 30;
 
             //secondprojectile 
