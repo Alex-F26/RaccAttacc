@@ -1631,13 +1631,13 @@ class Obstacle{
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 7;}
+                this.y += 700 * this.game.speed * (deltaTime/1000);;}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 5;}
+                this.y += 600 * this.game.speed * (deltaTime/1000);;}
             if((this.game.keys.includes('ArrowUp') && this.JetPackPowerUp)){
                 this.grounded = false;
-                this.y -= 5;}
+                this.y -= 600 * this.game.speed * (deltaTime/1000);;}
             if(this.JetPackPowerUp){
                 this.vy = 0;
             }
