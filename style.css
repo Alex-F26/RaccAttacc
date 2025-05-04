@@ -437,14 +437,15 @@ button:hover {
     position:absolute;
     background-color: aqua;
     border-radius: 25%;
-    top: 87%;
+    top: 86%;
     left: 40%;
-    width: 140px;
+    width: 170px;
     height: auto;
-    font-size: 12px;
+    font-size: 16px;
     font-family: "Jaro", sans-serif;
     z-index: 11;
 }
+
 
 .HTP {
     position: relative;
@@ -603,9 +604,9 @@ button:hover {
     border-radius: 2%;
     top: 1%;
     left: 1%;
-    width: 120px;
-    height: 30px;
-    font-size: 10px;
+    width: 75px;
+    height: 40px;
+    font-size: 18px;
     font-family: "Jaro", sans-serif;
 }
 
@@ -830,11 +831,12 @@ button:hover {
 
 
 .backButtonINFO{
-    position:absolute;
+   position:absolute;
     background: none;
     background-color: none;
     border-radius: 5%;
-    color: lime;
+    color: rgb(0, 0, 0);
+    background-color: aqua;
     top: 0%;
     left: 2%;
     width: 75px;
@@ -843,11 +845,6 @@ button:hover {
     font-family: "Jaro", sans-serif;
 }
 
-.backButtonINFO:hover{
-    transition:  border-left 0.2s;
-    background-color: aqua;
-    color: black;
-}
 
 
 .EnemyNextButtonLeft{
