@@ -1694,7 +1694,7 @@ button:hover {
 #WinMessage{
     position: absolute;
     z-index: 2;
-    top: 28%; 
+    top: 20%; 
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
