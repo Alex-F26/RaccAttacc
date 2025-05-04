@@ -2515,7 +2515,7 @@ class miniCOWenemy extends Enemy {
             this.score = this.lives;
             this.type = 'RAT';
             this.maxFrame = 5;
-            this.speedX = Math.random() * -125 -100;
+            this.speedX = Math.random() * -170 -170;
 
             this.randomSqueak = Math.random();
             if(this.randomSqueak <= 0.45) {
@@ -2561,7 +2561,7 @@ class miniCOWenemy extends Enemy {
             this.lives = 3;
             this.score = this.lives;
             this.type = 'WASP';
-            this.speedX = Math.random() * -275 -250;
+            this.speedX = Math.random() * -325 -275;
 
             this.maxFrame = 5;
 
