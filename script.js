@@ -166,6 +166,11 @@ document.getElementById('ResumeButton').addEventListener('pointerdown', () => {
             cursorSW.style.display = 'none';
             PauseButton.classList.remove('hidden');
 
+        if(Game.gameOver){
+                document.getElementById("WinMessage").classList.remove('hidden');
+                document.getElementById("LoseMessage").classList.remove('hidden');
+                document.getElementById("CreditsMessage").classList.remove('hidden');
+            }
 
             resumePlayingSounds();
             lastTime = performance.now();
@@ -597,6 +602,9 @@ document.getElementById('PauseButton').addEventListener('keydown', (e) => {
             RestartButton.classList.remove('hidden');
             QuitButton.classList.remove('hidden');
             PauseButton.classList.add('hidden');
+            document.getElementById("WinMessage").classList.add('hidden');
+            document.getElementById("LoseMessage").classList.add('hidden');
+            document.getElementById("CreditsMessage").classList.add('hidden');
 
             cursorSW.style.display = 'block';
             
@@ -1698,9 +1706,7 @@ class Obstacle{
             }
 
             else {this.frameX = 0;}
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
+
             //power up
     if(this.BombPowerUp){
         
@@ -1787,9 +1793,6 @@ class Obstacle{
                     this.image = document.getElementById('raccoon1');               
                 }}  
 
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
         }
 
         draw(context){      
@@ -2006,7 +2009,7 @@ class Obstacle{
                 this.explosion1 = 0;
                 this.explosion2 = 0;
                 
-                this.lives = 125; //125
+                this.lives = 100; //125
                 this.livesOG = this.lives;
                 this.score = this.lives;
         }
@@ -2309,14 +2312,9 @@ class ACORN extends miniBoss{
     update(deltaTime){
         this.referenceY = this.game.player.y;
          this.x += -2 - this.game.speed;
-        //  this.y -= -1 - this.game.speed;
          if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
         
         
-
-        //   const randomize = Math.random();
-        //the following code uses the randomize variable to decide whether the miniOWLs will
-        //fly up or down depending also on their initial y spawn
          if(this.referenceY > 300) this.y -= this.speedY - this.game.speed;
          if(this.referenceY < 200) this.y += this.speedY - this.game.speed;
          if(this.referenceY > 200 < 300) this.y;
@@ -2362,17 +2360,8 @@ class SquirrelLaser extends miniBoss{
         this.referenceY = this.game.player.y;
          this.x -= 2;
          this.y += this.game.speed;
-        //  this.y -= -1 - this.game.speed;
-         if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true;
-        
-        
 
-        //   const randomize = Math.random();
-        //the following code uses the randomize variable to decide whether the miniOWLs will
-        //fly up or down depending also on their initial y spawn
-        //  if(this.referenceY > 300) this.y -= this.speedY - this.game.speed;
-        //  if(this.referenceY < 200) this.y += this.speedY - this.game.speed;
-        //  if(this.referenceY > 200 < 300) this.y;
+         if(this.x + this.width < 0 || this.y + this.height < 0 || this.y > 500) this.markedForDeletion = true; 
 
     }
     draw(context){ 
@@ -2408,8 +2397,6 @@ class miniSQUIRREL extends miniBoss{
         
 
          const randomize = Math.random();
-        //the following code uses the randomize variable to decide whether the miniOWLs will
-        //fly up or down depending also on their initial y spawn
          if(randomize < .3 && this.yOG >= 250) this.y += this.speedY - this.game.speed;
          if(randomize < .6 && this.yOG <= 250) this.y -= this.speedY - this.game.speed;
          if(randomize < .9 && this.yOG <= 250) this.y;
@@ -3131,19 +3118,12 @@ class miniCOWenemy extends Enemy {
             this.UFOIsAlive = false;
             this.SQUIRRELIsAlive = false;
 
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
             this.powerups = [];
             this.powerUpInterval = getRandomInt(5000, 7000);
             this.powerUpTimer = 0;
             this.AirSupportS = [];
 
             this.spacePressed = false;
-
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
 
             this.enemyTimer = 0;
 
@@ -3172,7 +3152,7 @@ class miniCOWenemy extends Enemy {
             
             this.gameTime = 0; //THIS TIME IS WHAT ENEMIES,OBJECT, PLAYER, AND BOSSES USE TO UPDATE
 
-            this.gameTimeX = 250000; //This is used ONLY for the timer for the game
+            this.gameTimeX = 260000; //This is used ONLY for the timer for the game
             this.gameTimeOGX = this.gameTimeX; //This is used ONLY for the timer for the game
             this.timeEnd = 0;       //This is used ONLY for the timer for the game
 
@@ -3256,9 +3236,6 @@ class miniCOWenemy extends Enemy {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //WORK ZONE
-        //WORK ZONE
-        //WORK ZONE
 
 
 //AIR SUPPORT/BOMB COLLISIONS
@@ -3316,10 +3293,6 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
     });
 
 
-    //WORK ZONE
-    //WORK ZONE
-    //WORK ZONE
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
 //ENEMY COLLISIONS
@@ -3358,9 +3331,6 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                 this.addDeathSound(enemy);
                 PLAYERHURT.play();
 
-            // if(enemy.type === 'lucky' && this.lives < this.MaxLives) {
-            //     this.lives += 1;}
-
             if(!this.gameOver && enemy.type === 'OPOSSUM') {
                 this.score--;
                 this.lives -= 5;
@@ -3396,7 +3366,7 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                     return;
                 }
 
-                const knockbackPower = 3; // Higher = stronger knockback
+                const knockbackPower = 3; 
 
                 if (this.player.x < enemy.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3454,14 +3424,8 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                         this.addExplosion(projectile);
                         HIT.play();
                         HIT.currentTime = 0;}
-    
 
-                    //this.particles.push(new Particle(this, enemy.x + enemy.width/2, enemy.y + enemy.height/2));
                 if(enemy.lives <= 0){
-                    //every time enemy dies, gears explode out
-                    // for(let i = 0; i < enemy.score; i++){
-                    //     this.particles.push(new Particle(this, enemy.x + enemy.width/2, enemy.y + enemy.height/2));
-                    // }
 
                         enemy.markedForDeletion = true;
                         this.addExplosion(enemy);
@@ -3478,16 +3442,12 @@ if (this.checkAirSupportCollision(AirSupport, enemy)) {
                             
                     if(!this.gameOver) this.score += enemy.score;
                     }
-                    //winningscore
                 }})
             });
             
             
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
 //PowerUp Collisions
         this.powerups.forEach(powerup => {
             powerup.update();
@@ -3537,10 +3497,6 @@ const randomize = Math.random();
             this.powerUpTimer += deltaTime;
         }
 
-
-//WORK ZONE
-//WORK ZONE
-//WORK ZONE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -3614,7 +3570,6 @@ this.bosses.forEach(Boss =>{
                 }
             if(Boss.lives <= 0){
                 this.bossDeaths++;
-                // this.addHeart(350);
 
                 if(Boss instanceof OWL){
                     FeatherPoof.play();
@@ -3660,7 +3615,7 @@ this.bosses.forEach(Boss =>{
         miniBoss.update();
         if(this.checkCollision(this.player, miniBoss)){
 
-            const knockbackPower = 3; // Higher = stronger knockback
+            const knockbackPower = 3; 
 
     if (this.player.x < miniBoss.x) {
         this.player.knockbackX = -knockbackPower;
@@ -3699,7 +3654,6 @@ this.bosses.forEach(Boss =>{
                     projectile.markedForDeletion = true;   
                     this.addExplosion(projectile); 
                      if(miniBoss.lives <= 0){
-                    //every time enemy dies, gears explode out
                     
     
                     miniBoss.markedForDeletion = true;
@@ -3763,7 +3717,7 @@ this.bosses.forEach(Boss =>{
                 Obstacle.update();
             if(!this.player.JetPackPowerUp){
             if(this.checkGnomeCollision(this.player, Obstacle)){
-                const knockbackPower = 5; // Higher = stronger knockback
+                const knockbackPower = 5; 
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3785,7 +3739,7 @@ this.bosses.forEach(Boss =>{
             }}
             if(this.player.JetPackPowerUp){
             if(this.checkGnomeJetPackCollision(this.player, Obstacle)){
-                const knockbackPower = 5; // Higher = stronger knockback
+                const knockbackPower = 5; 
 
                 if (this.player.x < Obstacle.x) {
                     this.player.knockbackX = -knockbackPower;
@@ -3816,7 +3770,7 @@ this.bosses.forEach(Boss =>{
         this.enemies.forEach(enemy => {
             if (enemy.markedForDeletion && enemy.sound) {
                 enemy.sound.pause();
-                enemy.sound.currentTime = 0; // optional: reset to beginning
+                enemy.sound.currentTime = 0; // reset to beginning
             }
         });
         this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
@@ -3882,10 +3836,7 @@ this.bosses.forEach(Boss =>{
         this.bosses.forEach(Boss =>{
             if(this.gameOver){
                 this.bosses = this.bosses.filter(Boss => Boss.markedForDeletion);
-                // for(let i = 0; i < Boss.score; i++){
-                // this.explosions.push(new SmokeExplosion(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));
-                // this.explosions.push(new FireExplosion(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));
-                // }
+
                 if(Boss instanceof OWL){
                     for(let i = 0; i < 20; i++){
                         const offsetX = Math.random() * 200 - 25;
@@ -3902,10 +3853,6 @@ this.bosses.forEach(Boss =>{
                     } }
 
 
-        //             else{
-        //                 for(let i = 0; i < Boss.score; i++){
-        //                     //this.particles.push(new Particle(this, Boss.x + Boss.width/2, Boss.y + Boss.height/2));}
-        //     }
          }
         });       
 
@@ -3976,14 +3923,6 @@ this.bosses.forEach(Boss =>{
             
         }
 
-       if( this.bosses[0].frameX === 6 && this.squirrelLaserCount === 0){
-       // this.addSquirrelLaser();
-        this.squirrelLaserCount = 1;
-
-     //THIS makes sure that only ONE acorn spawns at a time when the slingshot is shot
-    }
-            else if(this.bosses[0].frameX === 7) 
-            {this.squirrelLaserCount = 0;}
 
     if(this.miniBossTimer >= this.miniSQUIRRELBossInterval){
         this.addMiniSQUIRREL();
@@ -4064,9 +4003,7 @@ this.bosses.forEach(Boss =>{
                 Platform.draw(context); 
             });
 
-    //WORK ZONE
-    //WORK ZONE
-    //WORK ZONE
+
     this.AirSupportS.forEach(AirSupport =>{
         AirSupport.draw(context)
     });
@@ -4074,9 +4011,7 @@ this.bosses.forEach(Boss =>{
     this.powerups.forEach(powerup =>{
         powerup.draw(context);
     });
-    //WORK ZONE
-    //WORK ZONE
-    //WORK ZONE
+
 
             //obstacles
             this.Obstacles.forEach(Obstacle =>{
@@ -4133,9 +4068,7 @@ this.bosses.forEach(Boss =>{
     addSquirrelLaser(){
         this.miniBosses.push(new SquirrelLaser(this));
     }
-    //WORK ZONE
-    //WORK ZONE
-    //WORK ZONE
+
     addBomb(y){
         this.powerups.push(new Bomb(this, y));}
     addJetPack(y){
@@ -4152,9 +4085,7 @@ this.bosses.forEach(Boss =>{
 
     addRaygun(y){
         this.powerups.push(new Raygun(this, y));}
-    //WORK ZONE
-    //WORK ZONE
-    //WORK ZONE
+
         addEnemy(){
             const randomize = Math.random();
             if(randomize < 0.2){//.2
@@ -4174,8 +4105,7 @@ this.bosses.forEach(Boss =>{
             else if(randomize < 1) {
                 this.enemies.push(new OPOSSUM(this));
                 }
-
-            //else if(randomize < 1)  this.enemies.push(new BEE(this));   
+  
         } 
        
         addPlatform(){ 
@@ -4333,7 +4263,7 @@ function setupGame() {
         game.speed = 1; // reset speed
         gamePaused = false;
 
-        game.background = new Background(game); // Reinitialize background with fresh state
+        game.background = new Background(game); // Reinitialize background
         game.player = new Player(game); 
 
         
@@ -4352,9 +4282,6 @@ function setupGame() {
     Music.playbackRate = 1;
     Music.play();
 
-
-
-    // Add any other necessary resets here
 }
 
 // Animation loop
