@@ -1536,7 +1536,7 @@ class Obstacle{
             
             this.vy = 0;
             this.gravity = 7000;
-            this.jumpStrength = -2000;
+            this.jumpStrength = -1850;
             this.grounded = true;
 
             this.projectiles = [];
