@@ -733,7 +733,7 @@ document.getElementById('PauseButton').addEventListener('keydown', (e) => {
     
 
             window.addEventListener('keydown', e => {
-            if(((e.key === 'ArrowUp' )  || (e.key === '') ||
+            if(((e.key === 'ArrowUp' )  || (e.key === 'ArrowDown') ||
                 (e.key === 'ArrowLeft')|| (e.key === 'ArrowRight'))
                 && this.game.keys.indexOf(e.key) === -1){
                     this.game.keys.push(e.key);}
