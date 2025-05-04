@@ -2662,12 +2662,12 @@ class miniCOWenemy extends Enemy {
                 this.randomizeOpossumSound = Math.random();
                 if(this.randomizeOpossumSound <= .6){
                     this.sound = miniGROWL.cloneNode();
-                    this.sound.volume = 0.35;
+                    this.sound.volume = 0.45;
                 }
 
                 if(this.randomizeOpossumSound > .6){
                     this.sound = miniGROWL2.cloneNode();
-                    this.sound.volume = 0.3;
+                    this.sound.volume = 0.45;
                 }
 
                 
