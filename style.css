@@ -446,7 +446,6 @@ button:hover {
     z-index: 11;
 }
 
-
 .HTP {
     position: relative;
     top: 50%;
@@ -831,7 +830,7 @@ button:hover {
 
 
 .backButtonINFO{
-   position:absolute;
+    position:absolute;
     background: none;
     background-color: none;
     border-radius: 5%;
@@ -844,7 +843,6 @@ button:hover {
     font-size: 18px;
     font-family: "Jaro", sans-serif;
 }
-
 
 
 .EnemyNextButtonLeft{
@@ -1659,7 +1657,7 @@ button:hover {
 #CreditsMessage{
     position: absolute;
     z-index: 2;
-    top: 61%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -1696,7 +1694,7 @@ button:hover {
 #WinMessage{
     position: absolute;
     z-index: 2;
-    top: 40%;
+    top: 28%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
