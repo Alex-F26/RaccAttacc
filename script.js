@@ -733,7 +733,7 @@ document.getElementById('PauseButton').addEventListener('keydown', (e) => {
     
 
             window.addEventListener('keydown', e => {
-            if(((e.key === 'ArrowUp' )  || (e.key === 'ArrowDown') ||
+            if(((e.key === 'ArrowUp' )  || (e.key === '') ||
                 (e.key === 'ArrowLeft')|| (e.key === 'ArrowRight'))
                 && this.game.keys.indexOf(e.key) === -1){
                     this.game.keys.push(e.key);}
@@ -1633,7 +1633,7 @@ class Obstacle{
                 this.canJump = false;}
             else if(this.game.keys.includes('ArrowDown') && this.grounded && !this.JetPackPowerUp){
                 this.grounded = false;
-                this.y += 22}
+                this.y += 42}
             if(this.game.keys.includes('ArrowDown') && this.JetPackPowerUp){
                 this.grounded = false;
                 this.y += 700 * this.game.speed * (deltaTime/1000);}
@@ -4276,7 +4276,7 @@ this.bosses.forEach(Boss =>{
                 rect1.x + rect1.width-20 >= rect2.x && 
                 rect1.x+90 <= rect2.x + rect2.width &&
                 rect1.y + rect1.height >= rect2.y && 
-                rect1.y + rect1.height <= rect2.y+ 20 )} // Allow a small buffer
+                rect1.y + rect1.height <= rect2.y+ 40 )} // Allow a small buffer
 
         checkPowerUpCollision(rect1, rect2){
             return(
