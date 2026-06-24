@@ -1,6 +1,7 @@
 # Racc-Attack
 
-A learning experience for me. This was made before I really dove into my software development career. I had no idea about object oriented programming or hierarchies. Take a look in the "Abomination Branch", click into the "Abomination" folder, and look at Script.js to see what I'm talking about. Everything has been refactored since. Special thanks to my friends and family who made the silly little animal noises for the sprites!
+- A learning experience for me. This was made before I really dove into my software development career. I had no idea about object oriented programming or hierarchies.
+- Take a look in the "Abomination Branch", click into the "Abomination" folder, and look at Script.js to see what I'm talking about. Everything has been refactored since. Special thanks to my friends and family who made the silly little animal noises for the sprites!
 
 # About Racc-Attack
 - Play as a valiant raccoon inside Procyon, a city being invaded by... other animals?? You MUST defend your trash!
