@@ -11,5 +11,5 @@
 
 # Where to play
 - You can play by following the link: https://alex-f26.github.io/RaccAttacc/
-- OR by downloading the files (You may need to download Live Server):
+- OR by downloading the files (You may need to download Live Server in VScode):
 - open index.html in your IDE (VScode was used for this), right-click, and click Open with Live Server
