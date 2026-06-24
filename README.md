@@ -8,3 +8,7 @@ A learning experience for me. This was made before I really dove into my softwar
 - Jump, fly, shoot and survive!
 - The game ends once you have defeated the 3 main bosses
 
+# Where to play
+- You can play by following the link: https://alex-f26.github.io/RaccAttacc/
+- OR by downloading the files (You may need to download Live Server):
+- open index.html in your IDE (VScode was used for this), right-click, and click Open with Live Server
